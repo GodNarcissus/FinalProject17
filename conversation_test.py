@@ -9,7 +9,7 @@ while True:
     r = input("""1. be friendly
 2. be rude
 3. ask to go out
-""")
+>>>""")
 #gives the user 3 text options with different outcomes
 
     if r == "1":
@@ -21,7 +21,7 @@ while True:
             r_1 = input(f"""\033[1;35mhi {n} ! what are you doing here at this ice cream social ?\033[1;m
         \033[1;33m1. try to be cool\033[1;m
         2. give a genuine answer
-        3. ask for her number""")
+        3. ask for her number\n""")
 
             if r_1 == "1":
                 print("Talking to this girl with the prettiest eyes I've ever seen.")

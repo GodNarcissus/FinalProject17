@@ -9,7 +9,62 @@ player.inventory = {"dollars" : 10}
 
 map = {"store" , "person"}
 
-def talkto(object):
-    if object not in map:
-        print(f"you can't talk to {object} here.")
-    elif
+print(player.inventory)
+
+def store():
+    if player.location == "A":
+        print("Hello! Welcome to my shop! What would you like to buy?")
+
+        while True:
+            purchase = input("""
+            1. $5 Buck Lunch -- $5
+            2. Bear ----------- $3
+            3. Water ---------- $1
+            4. Fiji Water ----- $2
+            5. leave
+
+            >>>""")
+
+            if purchase == "1":
+
+                if player.inventory["dollars"] >= 5:
+                    player.inventory["$5 Buck Lunch"] = 1
+                    player.inventory["dollars"] -= 5
+
+                else:
+                    print("Sorry! You don't have enough money to buy this!")
+
+            elif purchase == "2":
+
+                if player.inventory["dollars"] >= 3:
+                    player.inventory["bear"] = 1
+                    player.inventory["dollars"] -= 3
+
+                else:
+                    print("Sorry! You don't have enough money to buy this!")
+
+            elif purchase == "3":
+
+                if player.inventory["dollars"] >= 1:
+                    player.inventory["water"] = 1
+                    player.inventory["dollars"] -= 1
+
+                else:
+                    print("Sorry! You don't have enough money to buy this!")
+
+            elif purchase == "4":
+
+                if player.inventory["dollars"] >= 2:
+                    player.inventory["fiji water"] = 1
+                    player.inventory["dollars"] -= 2
+
+                else:
+                    print("Sorry! You don't have enough money to buy this!")
+
+            elif purchase == "5":
+                print("Goodbye! Have a nice day!")
+                break
+
+            else:
+                print("I'm sorry, I didn't quite get that.")
+
