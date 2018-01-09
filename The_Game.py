@@ -33,10 +33,7 @@ def talkto(character):
 
         #begins Ashley's speech tree
         if character == ashley:
-            if ashley in acquaintances:
-                print('\x1b[5;35;40m' + "Hey! Did you check your map yet?" +'\x1b[0m')
-                #prevents user from going through Ashley's speech tree again when map check is required
-            elif ashley in friends:
+            if ashley in friends:
                 print('\x1b[5;35;40m' + "Hi friend! How are you?" +'\x1b[0m')
             else:
                 acquaintances.append(ashley)
@@ -85,29 +82,38 @@ def talkto(character):
                             2. Try to win back her forgiveness.
 
                             >>> """)
+                            if r == "2":
+                                print('\x1b[1;37;40m' + "I better go apologize, what I said was wrong." + '\x1b[0m')
+                                time.sleep(s)
 
-                            if r == "1":
+
+                            elif r == "1":
                                 print('\x1b[1;37;40m' + "Finally, let's start the game already." + '\x1b[0m')
                                 time.sleep(s)
                                 print("you leave the room and shield your eyes as the sun beams down.")
                                 time.sleep(s)
                                 print("once your eyes adjust to the light, you see you're now in a park.")
                                 time.sleep(s)
+                                print("you see some kid playing Tetris on his cellphone.")
+                                time.sleep(s)
+                                print("you snatch his phone and pull up the map app to see where you are.")
+                                time.sleep(s)
                                 print("you turn around and realize the tutorial room was just a huge playground.")
                                 myself.location = "Joe Collins Park"
                                 map.append("Joe Collins Park")
                                 print("'Joe Collins Park' has been added to your map!")
                                 time.sleep(s)
-                                print("type in 'map' (no quotes) to see your list of unlocked locations.")
+                                print("type in 'map' (no quotes) to see your list of visitable locations.")
                                 time.sleep(s)
-                                print("by the way, i'm the narrator! i'll be with you for the entire game.")
+                                print("by the way, i'm Simi! i'll be with you for the entire game.")
                                 time.sleep(s)
-                                print("do talkto(narrator) if you have any questions. you did skip the tutorial after all.")
+                                print("just say hello to me if you have any questions. you did skip the tutorial after all.")
                                 time.sleep(s)
                                 print("well, you can do as you please now. enjoy the game!")
                                 time.sleep(s)
                                 break
-                            break
+                            else:
+                                print("make a decision.")
                         break
 
                     else:
@@ -193,11 +199,50 @@ def talkto(character):
                     time.sleep(s)
                     print('\x1b[5;35;40m' + "I only have a couple of quick tips to show you before I send you on your way." +'\x1b[0m')
                     time.sleep(s)
-                    print('\x1b[5;35;40m' + "The game has several locations you can visit." +'\x1b[0m')
+                    print('\x1b[5;35;40m' + "Here have this cell phone. It has many uses." +'\x1b[0m')
                     time.sleep(s)
-                    print('\x1b[5;35;40m' + "Here's a map. Take a look at it right now." +'\x1b[0m')
+                    print('\x1b[5;35;40m' + "To look at the locations you can visit in the game, check out the map." +'\x1b[0m')
                     time.sleep(s)
-                    print("to look at your map, type in 'map' (without quotes) to see a list of discovered locations.")
+                    print('\x1b[5;35;40m' + "Just say whatever app you want to use, the phone is voice activated." +'\x1b[0m')
+                    print("say 'map' without quotes")
+                    while True:
+                        a=input(">>> ").lower()
+                        if a == "map":
+                            for x in map:
+                                print("|", x, "|",)
+                                #gives a list of locations on the same line
+                            break
+                        elif a == "hello ashley":
+                            print('\x1b[5;35;40m' + "Go ahead, look at the map on the phone I just gave you." +'\x1b[0m')
+
+                    time.sleep(1)
+                    print('\x1b[5;35;40m' + "Great! Now, the goal of this game is to make as many friends as possible." +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "People will normally give you their number if you're able to befreind them." +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "You can see your friends in your contacts list. Try it now." +'\x1b[0m')
+                    time.sleep(1)
+                    print("say 'contacts' without the quotes")
+                    while True:
+                        a=input(">>> ").lower()
+                        if a == "contacts":
+                            for x in friends:
+                                print("|", x, "|",)
+                                #gives a list of friends on the same line
+                            break
+                        elif a == "hello ashley":
+                            print('\x1b[5;35;40m' + "Check out your contacts." +'\x1b[0m')
+
+                    time.sleep(1)
+                    print('\x1b[5;35;40m' + "Oh right, I just gave you the phone so you won't have any numbers yet." +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "You can have mine then! I'll be your first friend!" +'\x1b[0m')
+                    time.sleep(s)
+                    print("Ashley is now your friend!")
+                    friends.append("Ashley")
+                    time.sleep(s)
+
+
 
 
 
@@ -308,5 +353,10 @@ print('\x1b[5;35;40m' + f"Now, normally people won't approach and talk to you li
 time.sleep(s)
 print('\x1b[5;35;40m' + f"Here, pretend like I didn't already say hi. How would you initiate a conversation?" + '\x1b[0m')
 time.sleep(1)
-print("use the talkto() function to talk to anyone you'd like. to talk to ashley, do talkto(ashley).")
-#a system message because I think it'd be weird for the characters to talk about these functions directly
+print("say 'hello ashley' without the quotes to greet Ashley.")
+#a system message to be more direct
+time.sleep(s)
+while True:
+    a=input(">>> ").lower()
+    if a == "hello ashley":
+        talkto(ashley)
