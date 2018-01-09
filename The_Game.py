@@ -21,113 +21,11 @@ friends = []
 myself = Character("x","Tutorial")
 #this is the player!
 
-while True:
-    #s is the variable in most time.sleep() instances, whichever number the player chooses will set the game text speed
-    s = (input("""At what speed would you like the text to show?
-    1. Fast
-    2. Normal
-    3. Super Fast (developer speed)
-    (type in the number)
-    >>> """))
-
-    if s == "1":
-        s = 1
-        break
-
-    elif s == "2":
-        s = 2
-        break
-
-    elif s == "3":
-        s = 0
-        break
-
-    else:
-        print("invalid response")
-        time.sleep(1)
-
-print('\x1b[5;35;40m' + "Hi! My name is Ashley! Welcome to the dating simulator!" + '\x1b[0m')
-#the purple italized text is set for Ashley's dialogue; right now this is an automatic encounter to get the player introduced to someone
-time.sleep(s)
-#makes sure the text doesn't pop in all at once, giving the player a chance to read everything
-print('\x1b[5;35;40m' + "Well, it's more like a friendship simulator because you won't really be dating much." + '\x1b[0m')
-time.sleep(s)
-print('\x1b[5;35;40m' + "But there'll be a lot of people for you to meet and befriend!" + '\x1b[0m')
-time.sleep(s)
-print('\x1b[5;35;40m' + "I'm the tutorial lady, and I'll be teaching you the basics of making friends!" + '\x1b[0m')
-time.sleep(s)
-print('\x1b[5;35;40m' + "Now, can you tell me your name?" + '\x1b[0m')
-time.sleep(s)
-myself.name = input(">>> ")
-#the player can choose their name
-time.sleep(1)
-
-while True:
-
-    ny = (input('\x1b[5;35;40m' + f"""Is {myself.name} really your name?""" + '\x1b[0m' +
-            """
-            1. Yes
-            2. No
-
-            >>> """))
-
-    if ny == "1":
-        print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
-        time.sleep(s)
-        break
-
-    elif ny == "2":
-        print('\x1b[1;37;40m' + "No." + '\x1b[0m')
-        time.sleep(s)
-        print('\x1b[5;35;40m' + "It isn't? I must've heard you wrong. What's your name, again?" + '\x1b[0m')
-        time.sleep(s)
-        myself.name = input(">>> ")
-
-        time.sleep(1)
-
-        ny = (input(f"""{myself.name} is your name, right?
-    1. Yes
-    2. No
-
-    >>> """))
-
-        if ny == "1":
-            print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
-            time.sleep(s)
-            break
-
-        elif ny == "2":
-            print('\x1b[1;37;40m' + "No." + '\x1b[0m')
-            time.sleep(s)
-            print('\x1b[5;35;40m' + f"This is too much. I think I'll just call you {myself.name}." + '\x1b[0m')
-            time.sleep(s)
-            break
-        #this feature is just for humor
-
-        elif ny !="1":
-            print('\x1b[5;35;40m' + "Excuse me? Sorry, I don't quite get what you mean" + '\x1b[0m')
-            time.sleep(1)
-
-    elif ny !="1":
-        print('\x1b[5;35;40m' + "Excuse me? Sorry, I don't quite get what you mean" + '\x1b[0m')
-        time.sleep(1)
-
-#the loop allows for the player to make sure they get the name they want
-
-print('\x1b[5;35;40m' + f"Hi, {myself.name}! Nice to meet you!" + '\x1b[0m')
-time.sleep(s)
-print('\x1b[5;35;40m' + f"Now, normally people won't approach and talk to you like I just did." + '\x1b[0m')
-time.sleep(s)
-print('\x1b[5;35;40m' + f"Here, pretend like I didn't already say hi. How would you initiate a conversation?" + '\x1b[0m')
-time.sleep(1)
-print("use the talkto() function to talk to anyone you'd like. to talk to ashley, do talkto(ashley).")
-#a system message because I think it'd be weird for the characters to talk about these functions directly
-
 ashley = Character("Ashley","Tutorial")
-#creates Ashley so player can talk to her
+#this is the tutorial lady
 
-#the talkto() function allows for the player to interact with the npc's
 def talkto(character):
+#the talkto() function allows for the player to interact with the npc's
     if myself.location == character.location:
         print('\x1b[1;37;40m' + f"Hello {character.name}!" + '\x1b[0m')
         time.sleep(s)
@@ -138,6 +36,8 @@ def talkto(character):
             if ashley in acquaintances:
                 print('\x1b[5;35;40m' + "Hey! Did you check your map yet?" +'\x1b[0m')
                 #prevents user from going through Ashley's speech tree again when map check is required
+            elif ashley in friends:
+                print('\x1b[5;35;40m' + "Hi friend! How are you?" +'\x1b[0m')
             else:
                 acquaintances.append(ashley)
                 print('\x1b[5;35;40m' + f"Hello! Good job, your greeting is quite plain but it does the trick just fine." + '\x1b[0m')
@@ -307,3 +207,106 @@ def talkto(character):
     else:
         print("that person isn't here")
         #in the case the person isn't in the same location or if that person doesn't exist
+
+
+while True:
+    #s is the variable in most time.sleep() instances, whichever number the player chooses will set the game text speed
+    s = (input("""At what speed would you like the text to show?
+    1. Fast
+    2. Normal
+    3. Super Fast (developer speed)
+    (type in the number)
+    >>> """))
+
+    if s == "1":
+        s = 1
+        break
+
+    elif s == "2":
+        s = 2
+        break
+
+    elif s == "3":
+        s = 0
+        break
+
+    else:
+        print("invalid response")
+        time.sleep(1)
+
+print('\x1b[5;35;40m' + "Hi! My name is Ashley! Welcome to the dating simulator!" + '\x1b[0m')
+#the purple italized text is set for Ashley's dialogue; right now this is an automatic encounter to get the player introduced to someone
+time.sleep(s)
+#makes sure the text doesn't pop in all at once, giving the player a chance to read everything
+print('\x1b[5;35;40m' + "Well, it's more like a friendship simulator because you won't really be dating much." + '\x1b[0m')
+time.sleep(s)
+print('\x1b[5;35;40m' + "But there'll be a lot of people for you to meet and befriend!" + '\x1b[0m')
+time.sleep(s)
+print('\x1b[5;35;40m' + "I'm the tutorial lady, and I'll be teaching you the basics of making friends!" + '\x1b[0m')
+time.sleep(s)
+print('\x1b[5;35;40m' + "Now, can you tell me your name?" + '\x1b[0m')
+time.sleep(s)
+myself.name = input(">>> ")
+#the player can choose their name
+time.sleep(1)
+
+while True:
+
+    ny = (input('\x1b[5;35;40m' + f"""Is {myself.name} really your name?""" + '\x1b[0m' +
+            """
+            1. Yes
+            2. No
+
+            >>> """))
+
+    if ny == "1":
+        print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
+        time.sleep(s)
+        break
+
+    elif ny == "2":
+        print('\x1b[1;37;40m' + "No." + '\x1b[0m')
+        time.sleep(s)
+        print('\x1b[5;35;40m' + "It isn't? I must've heard you wrong. What's your name, again?" + '\x1b[0m')
+        time.sleep(s)
+        myself.name = input(">>> ")
+
+        time.sleep(1)
+
+        ny = (input(f"""{myself.name} is your name, right?
+    1. Yes
+    2. No
+
+    >>> """))
+
+        if ny == "1":
+            print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
+            time.sleep(s)
+            break
+
+        elif ny == "2":
+            print('\x1b[1;37;40m' + "No." + '\x1b[0m')
+            time.sleep(s)
+            print('\x1b[5;35;40m' + f"This is too much. I think I'll just call you {myself.name}." + '\x1b[0m')
+            time.sleep(s)
+            break
+        #this feature is just for humor
+
+        elif ny !="1":
+            print('\x1b[5;35;40m' + "Excuse me? Sorry, I don't quite get what you mean" + '\x1b[0m')
+            time.sleep(1)
+
+    elif ny !="1":
+        print('\x1b[5;35;40m' + "Excuse me? Sorry, I don't quite get what you mean" + '\x1b[0m')
+        time.sleep(1)
+
+#the loop allows for the player to make sure they get the name they want (at least with a single try)
+
+print('\x1b[5;35;40m' + f"Hi, {myself.name}! Nice to meet you!" + '\x1b[0m')
+time.sleep(s)
+print('\x1b[5;35;40m' + f"Now, normally people won't approach and talk to you like I just did." + '\x1b[0m')
+time.sleep(s)
+print('\x1b[5;35;40m' + f"Here, pretend like I didn't already say hi. How would you initiate a conversation?" + '\x1b[0m')
+time.sleep(1)
+print("use the talkto() function to talk to anyone you'd like. to talk to ashley, do talkto(ashley).")
+#a system message because I think it'd be weird for the characters to talk about these functions directly
