@@ -24,6 +24,55 @@ myself = Character("x","Tutorial")
 ashley = Character("Ashley","Tutorial")
 #this is the tutorial lady
 
+uber = Character("Uber Driver", myself.location)
+#this is your uber driver, the person who will transport you to different locations
+
+def gps():
+    print("|", end=" ")
+    for x in map:
+        print(x, end=" | ")
+    print('\x1b[1;37;40m' + "MAP" + '\x1b[0m')
+        #gives a list of locations on the same line
+
+def contacts():
+    print("|", end=" ")
+    for x in friends:
+        print(x, end=" | ")
+    print('\x1b[1;37;40m' + "CONTACTS" + '\x1b[0m')
+        #gives a list of friends on the same line
+
+def call_uber():
+    print("calling your uber driver...")
+    time.sleep(2)
+    print("...")
+    time.sleep(2)
+    print('\x1b[0;30;47m' + f"What's up, {myself.name}? Where you wanna go?" + '\x1b[0m')
+    time.sleep(1)
+    print('\x1b[0;30;47m' + "Just tell me where." + '\x1b[0m')
+    time.sleep(1)
+    while True:
+        gps()
+        d = input(">>> ")
+        if d == myself.location:
+            print('\x1b[0;30;47m' + "My dude we're already here!" + '\x1b[0m')
+            time.sleep(s)
+            print('\x1b[0;30;47m' + "Don't make me waste my time!" + '\x1b[0m')
+        elif d in map:
+            print('\x1b[0;30;47m' + "Going there now, my dude." + '\x1b[0m')
+            time.sleep(1)
+            print("traveling...")
+            time.sleep(1)
+            myself.location=d
+            uber.location=d
+            print('\x1b[0;30;47m' + "Aight we here now. I'll be waiting here if you need me." + '\x1b[0m')
+            time.sleep(1)
+            print(f"you are now at '{myself.location}.'")
+            break
+        else:
+            print('\x1b[0;30;47m' + "I can't find that location in my gps." + '\x1b[0m')
+            time.sleep(s)
+            print('\x1b[0;30;47m' + "Make sure you tell me the location exactly as it is on your map. Copy & paste it if you need to." + '\x1b[0m')
+
 def talkto(character):
 #the talkto() function allows for the player to interact with the npc's
     if myself.location == character.location:
@@ -103,7 +152,7 @@ def talkto(character):
                                 map.append("Joe Collins Park")
                                 print("'Joe Collins Park' has been added to your map!")
                                 time.sleep(s)
-                                print("type in 'map' (no quotes) to see your list of visitable locations.")
+                                print("type in 'map' without the quotes to see your list of visitable locations.")
                                 time.sleep(s)
                                 print("by the way, i'm Simi! i'll be with you for the entire game.")
                                 time.sleep(s)
@@ -121,6 +170,7 @@ def talkto(character):
 
                     time.sleep(s)
 
+                time.sleep(s)
                 while myself.location=="Tutorial":
 
                     r = input('\x1b[5;35;40m' + "Below is a speech check. The 3 colors represent the success chance you have of passing it. Try your luck right now." + '\x1b[0m' +
@@ -204,13 +254,11 @@ def talkto(character):
                     print('\x1b[5;35;40m' + "To look at the locations you can visit in the game, check out the map." +'\x1b[0m')
                     time.sleep(s)
                     print('\x1b[5;35;40m' + "Just say whatever app you want to use, the phone is voice activated." +'\x1b[0m')
-                    print("say 'map' without quotes")
+                    print("say 'map' without the quotes")
                     while True:
                         a=input(">>> ").lower()
                         if a == "map":
-                            for x in map:
-                                print("|", x, "|",)
-                                #gives a list of locations on the same line
+                            gps()
                             break
                         elif a == "hello ashley":
                             print('\x1b[5;35;40m' + "Go ahead, look at the map on the phone I just gave you." +'\x1b[0m')
@@ -226,9 +274,7 @@ def talkto(character):
                     while True:
                         a=input(">>> ").lower()
                         if a == "contacts":
-                            for x in friends:
-                                print("|", x, "|",)
-                                #gives a list of friends on the same line
+                            contacts()
                             break
                         elif a == "hello ashley":
                             print('\x1b[5;35;40m' + "Check out your contacts." +'\x1b[0m')
@@ -241,13 +287,29 @@ def talkto(character):
                     print("Ashley is now your friend!")
                     friends.append("Ashley")
                     time.sleep(s)
-
-
-
-
-
-
-
+                    print('\x1b[5;35;40m' + "Congratulations! You've finished the tutorial!" +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "I have one final thing to teach you before you leave." +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "To travel to different places in your map, call up an uber." +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "Try looking for more friends at the park nearby, 'Joe Collins.'" +'\x1b[0m')
+                    time.sleep(s)
+                    map.append("Joe Collins Park")
+                    print("'Joe Collins Park' has been added to your map!")
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + f"Goodbye, {myself.name}! I hope you'll be able to make more friends soon!" +'\x1b[0m')
+                    time.sleep(s)
+                    print('\x1b[5;35;40m' + "You can call your uber now to take a look at the park." +'\x1b[0m')
+                    time.sleep(s)
+                    print("say 'call uber' without the quotes.")
+                    while True:
+                        a=input(">>> ").lower()
+                        if a == "call uber":
+                            call_uber()
+                            break
+                        elif a == "hello ashley":
+                            print('\x1b[5;35;40m' + "Call your uber now." +'\x1b[0m')
 
     else:
         print("that person isn't here")
@@ -355,8 +417,11 @@ print('\x1b[5;35;40m' + f"Here, pretend like I didn't already say hi. How would 
 time.sleep(1)
 print("say 'hello ashley' without the quotes to greet Ashley.")
 #a system message to be more direct
-time.sleep(s)
+time.sleep(1)
 while True:
     a=input(">>> ").lower()
     if a == "hello ashley":
         talkto(ashley)
+        break
+time.sleep(1)
+print("The park")
