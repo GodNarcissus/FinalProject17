@@ -12,6 +12,12 @@ class Character(object):
 map = ["Tutorial"]
 #will represent the player's accessable areas
 
+discovered = ["Tutorial"]
+#will represent the player's visited locations
+
+enemies = []
+#will represent list of those you've upset
+
 acquaintances = []
 #will represent the people the player has already talked to
 
@@ -33,6 +39,10 @@ def gps():
         print(x, end=" | ")
     print('\x1b[1;37;40m' + "MAP" + '\x1b[0m')
         #gives a list of locations on the same line
+
+def discover():
+    discovered.append(myself.location)
+    #adds a visited location to list of discovered places. opens introductory dialogue to the place if not discovered
 
 def contacts():
     print("|", end=" ")
@@ -97,25 +107,21 @@ def talkto(character):
                     4. Be rude
 
                     >>> """)
-
                     if r == "1":
                         print('\x1b[1;37;40m' + "So, like this, right?" + '\x1b[0m')
                         time.sleep(s)
                         print('\x1b[5;35;40m' + f"Yes! That's perfect, {myself.name}. Easy, right?" + '\x1b[0m')
                         break
-
                     elif r == "2":
                         print('\x1b[1;37;40m' + "I don't really want to." + '\x1b[0m')
                         time.sleep(s)
                         print('\x1b[5;35;40m' + "Well even if you didn't, you responded just now." + '\x1b[0m')
                         break
-
                     elif r == "3":
                         print('\x1b[1;37;40m' + "I'm not too sure how to do this" + '\x1b[0m')
                         time.sleep(s)
                         print('\x1b[5;35;40m' + "It's alright! You did it just now. Isn't it easy?" + '\x1b[0m')
                         break
-
                     elif r == "4":
                         print('\x1b[1;37;40m' + "I don't need this stupid tutorial. I know how to talk to people." + '\x1b[0m')
                         time.sleep(s)
@@ -124,8 +130,9 @@ def talkto(character):
                         print('\x1b[5;35;40m' + "..." + '\x1b[0m')
                         time.sleep(1)
                         print('\x1b[5;35;40m' + "Fine! If you think you can make friends without my help go on right ahead!" + '\x1b[0m')
+                        enemies.append("Ashley")
                         time.sleep(s)
-                        while True:
+                        while "Ashley" in enemies:
                             r = input("""Ashley storms off and leaves you alone in the Tutorial room. what would you like to do?
                             1. Go into the dating simulator without her help.
                             2. Try to win back her forgiveness.
@@ -134,45 +141,43 @@ def talkto(character):
                             if r == "2":
                                 print('\x1b[1;37;40m' + "I better go apologize, what I said was wrong." + '\x1b[0m')
                                 time.sleep(s)
+                                print("you chase after Ashley to find her sobbing on the floor.")
+                                while True:
+                                    time.sleep(s)
+                                    r = input("""She seems really hurt. What will you do?
+                                    \x1b[1;31;40m1. Apologize\x1b[0m
+                                    2. Give up
 
-
+                                    >>> """)
+                                    if r == "1":
+                                        print('\x1b[1;37;40m' + "Hey Ashley, I'm really sorry." + '\x1b[0m')
+                                        time.sleep(s)
+                                        k=random.randint(1,4)
+                                        if k == 1:
+                                            print('\x1b[5;35;40m' + "Okay, I forgive you, you sound genuine." + '\x1b[0m')
+                                            enemies.remove("Ashley")
+                                            break
+                                        else:
+                                            print('\x1b[5;35;40m' + "No! Go away! Don't talk to me!" + '\x1b[0m')
+                                            time.sleep(s)
+                                            print("maybe you should try again.")
+                                    elif r == "2":
+                                        print('\x1b[1;37;40m' + "Yeah, I don't care anymore. I'm out." + '\x1b[0m')
+                                        break
+                                    else:
+                                        print("make a decision.")
                             elif r == "1":
                                 print('\x1b[1;37;40m' + "Finally, let's start the game already." + '\x1b[0m')
-                                time.sleep(s)
-                                print("you leave the room and shield your eyes as the sun beams down.")
-                                time.sleep(s)
-                                print("once your eyes adjust to the light, you see you're now in a park.")
-                                time.sleep(s)
-                                print("you see some kid playing Tetris on his cellphone.")
-                                time.sleep(s)
-                                print("you snatch his phone and pull up the map app to see where you are.")
-                                time.sleep(s)
-                                print("you turn around and realize the tutorial room was just a huge playground.")
-                                myself.location = "Joe Collins Park"
-                                map.append("Joe Collins Park")
-                                print("'Joe Collins Park' has been added to your map!")
-                                time.sleep(s)
-                                print("type in 'map' without the quotes to see your list of visitable locations.")
-                                time.sleep(s)
-                                print("by the way, i'm Simi! i'll be with you for the entire game.")
-                                time.sleep(s)
-                                print("just say hello to me if you have any questions. you did skip the tutorial after all.")
-                                time.sleep(s)
-                                print("well, you can do as you please now. enjoy the game!")
-                                time.sleep(s)
                                 break
                             else:
                                 print("make a decision.")
                         break
-
                     else:
                         print('\x1b[5;35;40m' + "Type in one of the given numbers, I can't understand you." +'\x1b[0m')
-
                     time.sleep(s)
-
                 time.sleep(s)
-                while myself.location=="Tutorial":
-
+                while "Ashley" not in enemies:
+                    #continues conversation as long as player didn't roast ashley
                     r = input('\x1b[5;35;40m' + "Below is a speech check. The 3 colors represent the success chance you have of passing it. Try your luck right now." + '\x1b[0m' +
                     """
                     \x1b[1;32;40m1. 75% success\x1b[0m
@@ -181,70 +186,53 @@ def talkto(character):
                     4. Don't like chance
 
                     >>> """)
-
                     time.sleep(s)
-
                     if r == "1":
                         print('\x1b[1;37;40m' + "I wouldn't say I'm very charismatic, but I think I can talk just fine." + '\x1b[0m')
                         time.sleep(s)
                         k=random.randint(1,4)
                         #creates a random number
-
                         if k == 1:
                         #25% chance to get a 1; 25% chance to fail check
                             print('\x1b[5;35;40m' + "Yeah you really are a lousy speaker. Oh well, can't be helped." + '\x1b[0m')
                             time.sleep(s)
-
                         else:
                         #75% not to get a 1; 75% chance to pass check
                             print('\x1b[5;35;40m' + "Don't be silly; I think you have a lot of charisma!" + '\x1b[0m')
                             time.sleep(s)
-
                         break
-
                     elif r == "2":
                         print('\x1b[1;37;40m' + "I think I can talk to people just fine." + '\x1b[0m')
                         time.sleep(s)
                         k=random.randint(1,2)
-
                         if k == 1:
                             print('\x1b[5;35;40m' + "Uhh... think again. You might need to work on that." + '\x1b[0m')
                             time.sleep(s)
-
                         else:
                             print('\x1b[5;35;40m' + "You certainly can! I think you'll be able to make friends pretty easily." + '\x1b[0m')
                             time.sleep(s)
-
                         break
-
                     elif r == "3":
                         print('\x1b[1;37;40m' + "I'm an amazing speaker, I can make friends with no problem." + '\x1b[0m')
                         time.sleep(s)
                         k=random.randint(1,4)
-
                         if k == 1:
                             print('\x1b[5;35;40m' + "Wow, I can see where you're coming from. You're pretty confident too." + '\x1b[0m')
                             time.sleep(s)
-
                         else:
                             print('\x1b[5;35;40m' + "Um, I don't think so. You might need to tone it down a bit." + '\x1b[0m')
                             time.sleep(s)
-
                         break
-
                     elif r == "4":
                         print('\x1b[1;37;40m' + "I don't know; charisma isn't really my specialty." + '\x1b[0m')
                         time.sleep(s)
                         print('\x1b[5;35;40m' + "Some people are a little more shy than others. That's fine." + '\x1b[0m')
                         break
-
                     else:
                     #prevents user from typing something not fitting
                         print('\x1b[5;35;40m' + "I'm sorry, I don't know what you're trying to say." + '\x1b[0m')
                         time.sleep(s)
-
-                if myself.location == "Tutorial":
-
+                if "Ashley" not in enemies:
                     print('\x1b[5;35;40m' + "You've been doing a great job so far!" +'\x1b[0m')
                     time.sleep(s)
                     print('\x1b[5;35;40m' + "I only have a couple of quick tips to show you before I send you on your way." +'\x1b[0m')
@@ -262,7 +250,6 @@ def talkto(character):
                             break
                         elif a == "hello ashley":
                             print('\x1b[5;35;40m' + "Go ahead, look at the map on the phone I just gave you." +'\x1b[0m')
-
                     time.sleep(1)
                     print('\x1b[5;35;40m' + "Great! Now, the goal of this game is to make as many friends as possible." +'\x1b[0m')
                     time.sleep(s)
@@ -278,7 +265,6 @@ def talkto(character):
                             break
                         elif a == "hello ashley":
                             print('\x1b[5;35;40m' + "Check out your contacts." +'\x1b[0m')
-
                     time.sleep(1)
                     print('\x1b[5;35;40m' + "Oh right, I just gave you the phone so you won't have any numbers yet." +'\x1b[0m')
                     time.sleep(s)
@@ -310,12 +296,9 @@ def talkto(character):
                             break
                         elif a == "hello ashley":
                             print('\x1b[5;35;40m' + "Call your uber now." +'\x1b[0m')
-
     else:
         print("that person isn't here")
         #in the case the person isn't in the same location or if that person doesn't exist
-
-
 while True:
     #s is the variable in most time.sleep() instances, whichever number the player chooses will set the game text speed
     s = (input("""At what speed would you like the text to show?
@@ -324,23 +307,18 @@ while True:
     3. Super Fast (developer speed)
     (type in the number)
     >>> """))
-
     if s == "1":
         s = 1
         break
-
     elif s == "2":
         s = 2
         break
-
     elif s == "3":
         s = 0
         break
-
     else:
         print("invalid response")
         time.sleep(1)
-
 print('\x1b[5;35;40m' + "Hi! My name is Ashley! Welcome to the dating simulator!" + '\x1b[0m')
 #the purple italized text is set for Ashley's dialogue; right now this is an automatic encounter to get the player introduced to someone
 time.sleep(s)
@@ -356,41 +334,33 @@ time.sleep(s)
 myself.name = input(">>> ")
 #the player can choose their name
 time.sleep(1)
-
 while True:
-
     ny = (input('\x1b[5;35;40m' + f"""Is {myself.name} really your name?""" + '\x1b[0m' +
             """
             1. Yes
             2. No
 
             >>> """))
-
     if ny == "1":
         print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
         time.sleep(s)
         break
-
     elif ny == "2":
         print('\x1b[1;37;40m' + "No." + '\x1b[0m')
         time.sleep(s)
         print('\x1b[5;35;40m' + "It isn't? I must've heard you wrong. What's your name, again?" + '\x1b[0m')
         time.sleep(s)
         myself.name = input(">>> ")
-
         time.sleep(1)
-
         ny = (input(f"""{myself.name} is your name, right?
     1. Yes
     2. No
 
     >>> """))
-
         if ny == "1":
             print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
             time.sleep(s)
             break
-
         elif ny == "2":
             print('\x1b[1;37;40m' + "No." + '\x1b[0m')
             time.sleep(s)
@@ -398,17 +368,13 @@ while True:
             time.sleep(s)
             break
         #this feature is just for humor
-
         elif ny !="1":
             print('\x1b[5;35;40m' + "Excuse me? Sorry, I don't quite get what you mean" + '\x1b[0m')
             time.sleep(1)
-
     elif ny !="1":
         print('\x1b[5;35;40m' + "Excuse me? Sorry, I don't quite get what you mean" + '\x1b[0m')
         time.sleep(1)
-
 #the loop allows for the player to make sure they get the name they want (at least with a single try)
-
 print('\x1b[5;35;40m' + f"Hi, {myself.name}! Nice to meet you!" + '\x1b[0m')
 time.sleep(s)
 print('\x1b[5;35;40m' + f"Now, normally people won't approach and talk to you like I just did." + '\x1b[0m')
@@ -423,5 +389,41 @@ while True:
     if a == "hello ashley":
         talkto(ashley)
         break
+if "Ashley" in enemies:
+    time.sleep(s)
+    print("you look on the floor and see that Ashley dropped something on her way out.")
+    time.sleep(s)
+    print('\x1b[1;37;40m' + "It's a cellphone!" + '\x1b[0m')
+    time.sleep(s)
+    print("you turn it on, realizing it has no password.")
+    time.sleep(s)
+    print('\x1b[1;37;40m' + "I might as well keep this to help me get out of here." + '\x1b[0m')
+    time.sleep(s)
+    print('\x1b[1;37;40m' + "I should call an uber to pick me up." + '\x1b[0m')
+    time.sleep(s)
+    map.append("Joe Collins Park")
+    print("say 'call uber' without the quotes.")
+    while True:
+        a = input(">>> ").lower()
+        if a == "call uber":
+            call_uber()
+            break
+        else:
+            print('\x1b[1;37;40m' + "I need to call an Uber to get out of here." + '\x1b[0m')
+            time.sleep(1)
 time.sleep(1)
-print("The park")
+while True:
+    if myself.location == "Joe Collins Park":
+        if myself.location not in discovered:
+            discover()
+            print("this is the park")
+        else:
+            while True:
+                a = input(">>> ")
+                if a == "call uber":
+                    call_uber()
+                elif a == "map":
+                    map()
+                elif a == "contacts":
+                    contacts()
+
