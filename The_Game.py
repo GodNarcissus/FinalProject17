@@ -302,16 +302,16 @@ def talkto(character):
 while True:
     #s is the variable in most time.sleep() instances, whichever number the player chooses will set the game text speed
     s = (input("""At what speed would you like the text to show?
-    1. Fast
-    2. Normal
+    1. Normal
+    2. Fast
     3. Super Fast (developer speed)
     (type in the number)
     >>> """))
     if s == "1":
-        s = 1
+        s = 2
         break
     elif s == "2":
-        s = 2
+        s = 1
         break
     elif s == "3":
         s = 0
@@ -416,14 +416,29 @@ while True:
     if myself.location == "Joe Collins Park":
         if myself.location not in discovered:
             discover()
-            print("this is the park")
+            print("the park is plenty busy today.")
+            time.sleep(s)
+            print("however, two people catch your attention.")
+            time.sleep(s)
+            print("in the tennis court, instead of playing tennis, there's a girl skateboarding.")
+            time.sleep(s)
+            print("she seems to be struggling learning how to ollie.")
+            time.sleep(s)
+            print("behind the fenced court, you see someone has set up a volleyball net.")
+            time.sleep(s)
+            print("he looks like he's practicing a jumping serve.")
         else:
             while True:
                 a = input(">>> ")
                 if a == "call uber":
                     call_uber()
                 elif a == "map":
-                    map()
+                    gps()
                 elif a == "contacts":
                     contacts()
+
+    #elif myself.location == "Dairy Queen":
+
+    #elif myself.location == "":
+
 
