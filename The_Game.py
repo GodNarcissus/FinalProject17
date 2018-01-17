@@ -86,7 +86,7 @@ def call_uber():
 def talkto(character):
 #the talkto() function allows for the player to interact with the npc's
     if myself.location == character.location:
-        print('\x1b[1;37;40m' + f"Hello {character.name}!" + '\x1b[0m')
+        print('\x1b[1;37;40m' + f"Hey {character.name}!" + '\x1b[0m')
         time.sleep(s)
         #checks to make sure the player is talking to someone in the same place
 
@@ -248,10 +248,10 @@ def talkto(character):
                         if a == "map":
                             gps()
                             break
-                        elif a == "hello ashley":
+                        elif a == "hey ashley":
                             print('\x1b[5;35;40m' + "Go ahead, look at the map on the phone I just gave you." +'\x1b[0m')
                     time.sleep(1)
-                    print('\x1b[5;35;40m' + "Great! Now, the goal of this game is to make as many friends as possible." +'\x1b[0m')
+                    print('\x1b[5;35;40m' + "Now, the goal of this game is to make as many friends as possible." +'\x1b[0m')
                     time.sleep(s)
                     print('\x1b[5;35;40m' + "People will normally give you their number if you're able to befreind them." +'\x1b[0m')
                     time.sleep(s)
@@ -263,7 +263,7 @@ def talkto(character):
                         if a == "contacts":
                             contacts()
                             break
-                        elif a == "hello ashley":
+                        elif a == "hey ashley":
                             print('\x1b[5;35;40m' + "Check out your contacts." +'\x1b[0m')
                     time.sleep(1)
                     print('\x1b[5;35;40m' + "Oh right, I just gave you the phone so you won't have any numbers yet." +'\x1b[0m')
@@ -294,7 +294,7 @@ def talkto(character):
                         if a == "call uber":
                             call_uber()
                             break
-                        elif a == "hello ashley":
+                        elif a == "hey ashley":
                             print('\x1b[5;35;40m' + "Call your uber now." +'\x1b[0m')
     else:
         print("that person isn't here")
@@ -319,7 +319,7 @@ while True:
     else:
         print("invalid response")
         time.sleep(1)
-print('\x1b[5;35;40m' + "Hi! My name is Ashley! Welcome to the dating simulator!" + '\x1b[0m')
+print('\x1b[5;35;40m' + "Hi! Welcome to the dating simulator!" + '\x1b[0m')
 #the purple italized text is set for Ashley's dialogue; right now this is an automatic encounter to get the player introduced to someone
 time.sleep(s)
 #makes sure the text doesn't pop in all at once, giving the player a chance to read everything
@@ -379,14 +379,31 @@ print('\x1b[5;35;40m' + f"Hi, {myself.name}! Nice to meet you!" + '\x1b[0m')
 time.sleep(s)
 print('\x1b[5;35;40m' + f"Now, normally people won't approach and talk to you like I just did." + '\x1b[0m')
 time.sleep(s)
+print("\x1b[5;35;40mI'll stand in the \x1b[0m" + "\x1b[4;35;40mcorner\x1b[0m" + "\x1b[5;35;40m of the room.\x1b[0m")
 print('\x1b[5;35;40m' + f"Here, pretend like I didn't already say hi. How would you initiate a conversation?" + '\x1b[0m')
 time.sleep(1)
-print("say 'hello ashley' without the quotes to greet Ashley.")
+print("when talking to someone for the first time, you need to approach & introduce yourself.")
+time.sleep(1)
+print("say 'go to corner' (without quotes) to walk up to the girl in the corner.")
+time.sleep(1)
+while True:
+    a = input(">>> ").lower()
+    if a == "go to corner":
+        print('\x1b[1;37;40m' + f"Hi, I'm {myself.name}." + '\x1b[0m')
+        time.sleep(s)
+        print('\x1b[5;35;40m' + f"Hi! My name is Ashley." + '\x1b[0m')
+        time.sleep(s)
+        break
+print("any word that is underlined is a location you can approach")
+time.sleep(1)
+print("now that you know her name, you can greet her and begin a conversation.")
+time.sleep(1)
+print("say 'hey ashley' (without quotes) to greet Ashley.")
 #a system message to be more direct
 time.sleep(1)
 while True:
     a=input(">>> ").lower()
-    if a == "hello ashley":
+    if a == "hey ashley":
         talkto(ashley)
         break
 if "Ashley" in enemies:
@@ -402,7 +419,7 @@ if "Ashley" in enemies:
     print('\x1b[1;37;40m' + "I should call an uber to pick me up." + '\x1b[0m')
     time.sleep(s)
     map.append("Joe Collins Park")
-    print("say 'call uber' without the quotes.")
+    print("say 'call uber' (without quotes).")
     while True:
         a = input(">>> ").lower()
         if a == "call uber":
@@ -418,15 +435,26 @@ while True:
             discover()
             print("the park is plenty busy today.")
             time.sleep(s)
-            print("however, two people catch your attention.")
+            print("however, two people specifically catch your attention.")
             time.sleep(s)
-            print("in the tennis court, instead of playing tennis, there's a girl skateboarding.")
+            print("in the \x1b[4;37;40mtennis court\x1b[0m, instead of playing tennis, there's a girl skateboarding.")
             time.sleep(s)
             print("she seems to be struggling learning how to ollie.")
             time.sleep(s)
-            print("behind the fenced court, you see someone has set up a volleyball net.")
+            print("behind the fenced court, you see someone has set up a \x1b[4;37;40mvolleyball net\x1b[0m.")
             time.sleep(s)
             print("he looks like he's practicing a jumping serve.")
+            time.sleep(s)
+            print("by the way, I'm Simi, the AI in your phone.")
+            time.sleep(s)
+            print("i normally reside in the Tutorial, but Ashley put me in your phone so I could tag along.")
+            time.sleep(s)
+            print("think of me as the narrator, I'll always be with you.")
+            time.sleep(s)
+            print("if you have any questions, want to see all the apps on your phone, or just want to talk")
+            time.sleep(s)
+            print("just say, 'hey simi' (without quotes).")
+
         else:
             while True:
                 a = input(">>> ")
@@ -436,6 +464,7 @@ while True:
                     gps()
                 elif a == "contacts":
                     contacts()
+                elif a == "
 
     #elif myself.location == "Dairy Queen":
 
