@@ -30,8 +30,60 @@ myself = Character("x","Tutorial")
 ashley = Character("Ashley","Tutorial")
 #this is the tutorial lady
 
+abby = Character("Abby","Joe Collins Park")
+#this is the skater girl
+
+paul = Character("Paul","Joe Collins Park")
+#this is the volleyball character
+
 uber = Character("Uber Driver", myself.location)
 #this is your uber driver, the person who will transport you to different locations
+
+simi = Character("Simi", myself.location)
+#this is the siri equivalent/narrator
+
+#basically what the player can do in any location after the tutorial
+def options():
+    a = input(">>> ").lower()
+    if a == "call uber":
+        call_uber()
+        #can travel to different locations
+    elif a == "map":
+        gps()
+        #can see the list of available locations
+    elif a == "contacts":
+        contacts()
+        #can see friends list
+    elif a == "look around":
+        observe()
+        #gives a description of the area
+    elif a == "hey simi":
+        talkto(simi)
+        #opens phone
+    elif a == "hey myself":
+        talkto(myself)
+        #talk to yourself
+    elif a == "hey uber driver":
+        talkto(uber)
+        #talks to uber driver
+    elif a == "hey ashley":
+        talkto(ashley)
+        #talk to tutorial lady
+    elif a == "go to tennis court":
+        approach("tennis court")
+        #learns the skater's name
+    elif a == "hey abby":
+        talkto(abby)
+        #talks to the skater
+    elif a == "go to volleyball net":
+        approach("volleyball net")
+        #learns the volleyball player's name
+    elif a == "hey paul":
+        talkto(paul)
+        #talks to volleyball player
+    else:
+        print("invalid")
+
 
 def gps():
     print("|", end=" ")
@@ -39,6 +91,7 @@ def gps():
         print(x, end=" | ")
     print('\x1b[1;37;40m' + "MAP" + '\x1b[0m')
         #gives a list of locations on the same line
+        #anything with '\x1b...' changes the color of the text to differentiate different character dialogues
 
 def discover():
     discovered.append(myself.location)
@@ -47,9 +100,9 @@ def discover():
 def contacts():
     print("|", end=" ")
     for x in friends:
-        print(x, end=" | ")
+        print(x.name, end=" | ")
     print('\x1b[1;37;40m' + "CONTACTS" + '\x1b[0m')
-        #gives a list of friends on the same line
+        #gives a list of friends' names on the same line
 
 def call_uber():
     print("calling your uber driver...")
@@ -74,6 +127,7 @@ def call_uber():
             time.sleep(1)
             myself.location=d
             uber.location=d
+            simi.location=d
             print('\x1b[0;30;47m' + "Aight we here now. I'll be waiting here if you need me." + '\x1b[0m')
             time.sleep(1)
             print(f"you are now at '{myself.location}.'")
@@ -83,19 +137,96 @@ def call_uber():
             time.sleep(s)
             print('\x1b[0;30;47m' + "Make sure you tell me the location exactly as it is on your map. Copy & paste it if you need to." + '\x1b[0m')
 
+#gives a description of the place the player is in
+def observe():
+    if myself.location == "Joe Collins Park":
+        print("the park is plenty busy today.")
+        time.sleep(s)
+        print("however, two people specifically catch your attention.")
+        time.sleep(s)
+        print("in the \x1b[4;37;40mtennis court\x1b[0m, instead of playing tennis, there's a girl skateboarding.")
+        time.sleep(s)
+        print("she seems to be struggling learning how to ollie.")
+        time.sleep(s)
+        print("behind the fenced court, you see someone has set up a \x1b[4;37;40mvolleyball net\x1b[0m.")
+        time.sleep(s)
+        print("he looks like he's practicing a jumping serve.")
+        time.sleep(s)
+    elif myself.location == "Tutorial":
+        print("the room is well lit by a couple bundles of christmas lights hanging from the ceiling.")
+        time.sleep(s)
+        print("Ashley has an interesting taste in decorations.")
+        time.sleep(s)
+
+
+#introduction dialogues, after going to where a person is, this will tell the player their names so they can talk to the characters
+def approach(place):
+    print('\x1b[1;37;40m' + f"Hi, I'm {myself.name}." + '\x1b[0m')
+    time.sleep(s)
+    if place == "corner":
+        if myself.location == "Tutorial":
+            print('\x1b[5;35;40m' + f"Hi! My name is Ashley." + '\x1b[0m')
+            time.sleep(s)
+        else:
+            print("you can't go there from here.")
+    elif place == "tennis court":
+        if myself.location == "Joe Collins Park":
+            print('\x1b[5;31;40m' + "Uh, hi. I'm Abby." + '\x1b[0m')
+            time.sleep(s)
+        else:
+            print("you can't go there from here.")
+    elif place == "volleyball net":
+        if myself.location == "Joe Collins Park":
+            print('\x1b[5;32;40m' + "Hey, I'm Paul." + '\x1b[0m')
+            time.sleep(s)
+        else:
+            print("you can't go there from here.")
+
+
 def talkto(character):
 #the talkto() function allows for the player to interact with the npc's
     if myself.location == character.location:
         print('\x1b[1;37;40m' + f"Hey {character.name}!" + '\x1b[0m')
         time.sleep(s)
-        #checks to make sure the player is talking to someone in the same place
-
         #begins Ashley's speech tree
         if character == ashley:
             if ashley in friends:
+                #if you choose to go back to the tutorial location and talk to ashley, gives a different speech tree
                 print('\x1b[5;35;40m' + "Hi friend! How are you?" +'\x1b[0m')
+            elif ashley in enemies:
+                #if the player wants ashley to forgive them, gives a different speech tree
+                while True:
+                    r = input("""Ashley is still crying in the corner, what will you do?
+                    \x1b[1;31;40m1. Apologize\x1b[0m
+                    2. Give up
+
+                    >>> """)
+                    if r == "1":
+                        print('\x1b[1;37;40m' + "Hey Ashley, I'm really sorry." + '\x1b[0m')
+                        time.sleep(s)
+                        k=random.randint(1,4)
+                        if k == 1:
+                            print('\x1b[5;35;40m' + "Okay, I forgive you, you sound genuine." + '\x1b[0m')
+                            enemies.remove(ashley)
+                            break
+                        else:
+                            print('\x1b[5;35;40m' + "No! Go away! Don't talk to me!" + '\x1b[0m')
+                            time.sleep(s)
+                            print("maybe you should try again.")
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "Yeah, I don't care anymore. I'm out." + '\x1b[0m')
+                        break
+                    else:
+                        print("make a decision.")
+                if ashley not in enemies:
+                    print('\x1b[5;35;40m' + "Hey, since we're friends now, why don't I give you my number." + '\x1b[0m')
+                    time.sleep(s)
+                    print("Ashley is now your friend!")
+                    friends.append(ashley)
+                    acquaintances.remove(ashley)
             else:
                 acquaintances.append(ashley)
+                #sets it so you've talked to ashley
                 print('\x1b[5;35;40m' + f"Hello! Good job, your greeting is quite plain but it does the trick just fine." + '\x1b[0m')
                 time.sleep(s)
                 while True:
@@ -130,9 +261,10 @@ def talkto(character):
                         print('\x1b[5;35;40m' + "..." + '\x1b[0m')
                         time.sleep(1)
                         print('\x1b[5;35;40m' + "Fine! If you think you can make friends without my help go on right ahead!" + '\x1b[0m')
-                        enemies.append("Ashley")
+                        enemies.append(ashley)
+                        acquaintances.remove(ashley)
                         time.sleep(s)
-                        while "Ashley" in enemies:
+                        while ashley in enemies:
                             r = input("""Ashley storms off and leaves you alone in the Tutorial room. what would you like to do?
                             1. Go into the dating simulator without her help.
                             2. Try to win back her forgiveness.
@@ -155,7 +287,7 @@ def talkto(character):
                                         k=random.randint(1,4)
                                         if k == 1:
                                             print('\x1b[5;35;40m' + "Okay, I forgive you, you sound genuine." + '\x1b[0m')
-                                            enemies.remove("Ashley")
+                                            enemies.remove(ashley)
                                             break
                                         else:
                                             print('\x1b[5;35;40m' + "No! Go away! Don't talk to me!" + '\x1b[0m')
@@ -175,8 +307,9 @@ def talkto(character):
                     else:
                         print('\x1b[5;35;40m' + "Type in one of the given numbers, I can't understand you." +'\x1b[0m')
                     time.sleep(s)
+
                 time.sleep(s)
-                while "Ashley" not in enemies:
+                while ashley not in enemies:
                     #continues conversation as long as player didn't roast ashley
                     r = input('\x1b[5;35;40m' + "Below is a speech check. The 3 colors represent the success chance you have of passing it. Try your luck right now." + '\x1b[0m' +
                     """
@@ -232,7 +365,7 @@ def talkto(character):
                     #prevents user from typing something not fitting
                         print('\x1b[5;35;40m' + "I'm sorry, I don't know what you're trying to say." + '\x1b[0m')
                         time.sleep(s)
-                if "Ashley" not in enemies:
+                if ashley not in enemies:
                     print('\x1b[5;35;40m' + "You've been doing a great job so far!" +'\x1b[0m')
                     time.sleep(s)
                     print('\x1b[5;35;40m' + "I only have a couple of quick tips to show you before I send you on your way." +'\x1b[0m')
@@ -271,7 +404,8 @@ def talkto(character):
                     print('\x1b[5;35;40m' + "You can have mine then! I'll be your first friend!" +'\x1b[0m')
                     time.sleep(s)
                     print("Ashley is now your friend!")
-                    friends.append("Ashley")
+                    friends.append(ashley)
+                    acquaintances.remove(ashley)
                     time.sleep(s)
                     print('\x1b[5;35;40m' + "Congratulations! You've finished the tutorial!" +'\x1b[0m')
                     time.sleep(s)
@@ -296,9 +430,25 @@ def talkto(character):
                             break
                         elif a == "hey ashley":
                             print('\x1b[5;35;40m' + "Call your uber now." +'\x1b[0m')
+        elif character == simi:
+            print(f"hi {myself.name}, what do you need?")
+            time.sleep(1)
+            a = input("""
+            1. Apps
+            2. Talk
+            3. Help
+
+            >>> """)
+            if a == "1":
+                print('\x1b[1;37;40m' + "What are some of the commands or apps I can say?" + '\x1b[0m')
+                time.sleep(s)
+                print("""Here's a list of them & what they do right here:
+                map - gives a list of all your available locations
+                contacts - give a list of all your friends...""")
+
     else:
-        print("that person isn't here")
-        #in the case the person isn't in the same location or if that person doesn't exist
+        print("that person isn't here.")
+
 while True:
     #s is the variable in most time.sleep() instances, whichever number the player chooses will set the game text speed
     s = (input("""At what speed would you like the text to show?
@@ -389,13 +539,17 @@ time.sleep(1)
 while True:
     a = input(">>> ").lower()
     if a == "go to corner":
-        print('\x1b[1;37;40m' + f"Hi, I'm {myself.name}." + '\x1b[0m')
-        time.sleep(s)
-        print('\x1b[5;35;40m' + f"Hi! My name is Ashley." + '\x1b[0m')
-        time.sleep(s)
+        approach("corner")
         break
-print("any word that is underlined is a location you can approach")
+print("any word that is underlined is a location you can approach.")
 time.sleep(1)
+print("if you want to learn more about your surroundings or get a refresher on what can be found there, say 'look around' (without quotes)")
+time.sleep(2)
+while True:
+    a = input(">>> ").lower()
+    if a == "look around":
+        observe()
+        break
 print("now that you know her name, you can greet her and begin a conversation.")
 time.sleep(1)
 print("say 'hey ashley' (without quotes) to greet Ashley.")
@@ -430,21 +584,10 @@ if "Ashley" in enemies:
             time.sleep(1)
 time.sleep(1)
 while True:
+    options()
     if myself.location == "Joe Collins Park":
         if myself.location not in discovered:
             discover()
-            print("the park is plenty busy today.")
-            time.sleep(s)
-            print("however, two people specifically catch your attention.")
-            time.sleep(s)
-            print("in the \x1b[4;37;40mtennis court\x1b[0m, instead of playing tennis, there's a girl skateboarding.")
-            time.sleep(s)
-            print("she seems to be struggling learning how to ollie.")
-            time.sleep(s)
-            print("behind the fenced court, you see someone has set up a \x1b[4;37;40mvolleyball net\x1b[0m.")
-            time.sleep(s)
-            print("he looks like he's practicing a jumping serve.")
-            time.sleep(s)
             print("by the way, I'm Simi, the AI in your phone.")
             time.sleep(s)
             print("i normally reside in the Tutorial, but Ashley put me in your phone so I could tag along.")
@@ -454,17 +597,48 @@ while True:
             print("if you have any questions, want to see all the apps on your phone, or just want to talk")
             time.sleep(s)
             print("just say, 'hey simi' (without quotes).")
+            time.sleep(s)
+            print("if you're not sure what to do, you can always look around or talk to me for help.")
+            time.sleep(s)
 
         else:
             while True:
-                a = input(">>> ")
+                a = input(">>> ").lower()
                 if a == "call uber":
                     call_uber()
+                    #can travel to different locations
                 elif a == "map":
                     gps()
+                    #can see the list of available locations
                 elif a == "contacts":
                     contacts()
-                elif a == "
+                    #can see friends list
+                elif a == "look around":
+                    observe()
+                    #gives a description of the area
+                elif a == "hey simi":
+                    talkto(simi)
+                    #opens phone
+                elif a == "hey myself":
+                    talkto(myself)
+                    #talk to yourself
+                elif a == "hey uber driver":
+                    talkto(uber)
+                elif a == "go to tennis court":
+                    approach("tennis court")
+                    #learns the skater's name
+                elif a == "hey abby":
+                    talkto(abby)
+                    #talks to the skater
+                elif a == "go to volleyball net":
+                    approach("volleyball net")
+                    #learns the volleyball player's name
+                elif a == "hey paul":
+                    talkto(paul)
+                    #talks to volleyball player
+                else:
+                    print("invalid")
+
 
     #elif myself.location == "Dairy Queen":
 
