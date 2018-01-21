@@ -584,12 +584,29 @@ def talkto(character):
                             break
 
                 elif a == "4":
-                    print("okay.")
+                    print("yep, everything's okay.")
                     break
 
                 else:
                     print(f"hmm, i'm not finding anything for '{a}'.")
+        elif character == abby:
+            if abby in friends:
+                print("placeholder")
+            elif abby in acquaintances:
+                print("placeholder")
+            else:
+                acquaintances.append(abby)
+                while True:
+                    time.sleep(s)
+                    r = input("""\x1b[5;31;40mHey, I'm kinda busy. What do you want?\x1b[0m
+                    1.
+                    2. Ask for Number
+                    3. Try to Help Her Ollie
+                    4. Nevermind
 
+                    >>> """)
+                    if r == "1":
+                        print("placeholder")
     else:
         print("that person isn't here.")
 
