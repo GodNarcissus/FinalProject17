@@ -593,20 +593,105 @@ def talkto(character):
             if abby in friends:
                 print("placeholder")
             elif abby in acquaintances:
-                print("placeholder")
+                while True:
+                    r = input("""\x1b[5;31;40mDid you get Paul's number for me?\x1b[0m
+                    1. Yes
+                    2. No
+                    3. Why?
+
+                    >>> """)
             else:
                 acquaintances.append(abby)
                 while True:
                     time.sleep(s)
                     r = input("""\x1b[5;31;40mHey, I'm kinda busy. What do you want?\x1b[0m
-                    1.
-                    2. Ask for Number
-                    3. Try to Help Her Ollie
-                    4. Nevermind
+                    1. Ask for Number
+                    2. Try to Help Her Ollie
+                    3. Nevermind
 
                     >>> """)
                     if r == "1":
-                        print("placeholder")
+                        print('\x1b[1;37;40m' + "Can I get your number?" + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mYeah sure, here you go.\x1b[0m")
+                        time.sleep(s)
+                        print("Abby is now your friend!")
+                        friends.append(abby)
+                        acquaintances.remove(abby)
+                        break
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "Oh I actually am really good at skating. I could help you out!" + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mReally? That'd be great. Can you tell me what I'm doing wrong?\x1b[0m")
+                        while True:
+                            time.sleep(s)
+                            r = input("""You realize you actually don't know how to skate. What do you do?
+                            1. Tell her to jump higher
+                            2. Tell her she needs to "shuv" faster
+                            3. Tell her she needs to "pop" harder
+                            \x1b[1;31;40m4. Try to ollie yourself\x1b[0m
+
+                            >>> """)
+                            if r == "1":
+                                print('\x1b[1;37;40m' + "Have you tried jumping higher?" + '\x1b[0m')
+                                time.sleep(s)
+                                print("\x1b[5;31;40mSeriously? Just cuz I'm jumping higher doesn't mean my technique is clean.\x1b[0m")
+                                time.sleep(s)
+                                print("well that could have gone better...")
+                                break
+                            elif r == "2":
+                                print('\x1b[1;37;40m' + "You need to 'shuv' your board faster." + '\x1b[0m')
+                                time.sleep(s)
+                                print("\x1b[5;31;40mI'm obviously trying to ollie, not pop-shuv it.\x1b[0m")
+                                time.sleep(s)
+                                print("well that could have gone better...")
+                                break
+                            elif r == "3":
+                                print('\x1b[1;37;40m' + "You're 'popping' too softly. Do it harder for more height." + '\x1b[0m')
+                                time.sleep(s)
+                                print("\x1b[5;31;40mWow! That really works. Thanks!\x1b[0m")
+                                time.sleep(s)
+                                print("\x1b[5;31;40mHere, just in case I need more skate help, let's exchange numbers!\x1b[0m")
+                                time.sleep(s)
+                                print("Abby is now your friend!")
+                                friends.append(abby)
+                                acquaintances.remove(abby)
+                                break
+                            elif r == "4":
+                                print('\x1b[1;37;40m' + "It's better if I just show you. Let me have your skateboard for a sec." + '\x1b[0m')
+                                time.sleep(s)
+                                k=random.randint(1,4)
+                                print("you get on her skateboard and attempt to ollie for the very first time in your life...")
+                                if k == 1:
+                                    print("and you succeed!")
+                                    time.sleep(s)
+                                    print("you put what you learned from playing 'tony hawk pro skater' to good use and land with steez.")
+                                    time.sleep(s)
+                                    print("\x1b[5;31;40mAmazing! That was the sickest ollie I've ever seen!\x1b[0m")
+                                    time.sleep(s)
+                                    print("\x1b[5;31;40mI didn't really learn anything, but here's my number!\x1b[0m")
+                                    time.sleep(s)
+                                    print("\x1b[5;31;40mCall me up if you ever wanna schedule a skate sesh.\x1b[0m")
+                                    friends.append(abby)
+                                    acquaintances.remove(abby)
+                                    break
+                                else:
+                                    print("and you fail...")
+                                    time.sleep(s)
+                                    print("i guess riding your cousin's pennyboard up & down the block 4 years ago wasn't enough.")
+                                    time.sleep(s)
+                                    print("\x1b[5;31;40mThat was hella sketchy. I don't think you actually know how to skate.\x1b[0m")
+                                    enemies.append(abby)
+                                    acquaintances.remove(abby)
+                                    break
+                    elif r =="3":
+                        print('\x1b[1;37;40m' + "Oh, nothing." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mAlright.\x1b[0m")
+                        break
+
+                    else:
+                        print("\x1b[5;31;40mWhat? Sorry, I can't understand you.\x1b[0m")
     else:
         print("that person isn't here.")
 
