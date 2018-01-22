@@ -5,8 +5,21 @@ class Character(object):
 
 player = Character()
 
-player.inventory = {"dollars" : 10}
+inventory = {"dollars" : 10}
 
+def wallet():
+    for key, value in inventory.items():
+        print(f"* {key} -- {value}")
+
+def up():
+    inventory['dollars'] += 1
+
+def check():
+    if "dollars" in inventory:
+        print("it works!")
+
+    else:
+        print("it doesn't work...")
 map = {"store" , "person"}
 
 print(player.inventory)
