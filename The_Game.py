@@ -24,6 +24,9 @@ acquaintances = []
 friends = []
 #will represent the people the player has become friends with
 
+inventory = {"dollars" : 0}
+#will represent the player's wallet
+
 myself = Character("x","Tutorial")
 #this is the player!
 
@@ -49,6 +52,9 @@ def options():
     if a == "call uber":
         call_uber()
         #can travel to different locations
+    elif a == "wallet":
+        wallet()
+        #pulls up a dictionary of how much money you have
     elif a == "map":
         gps()
         #can see the list of available locations
@@ -87,6 +93,9 @@ def options():
     else:
         print("invalid")
 
+def wallet():
+    for key, value in inventory.items():
+        print(f"{key} -- {value}")
 
 def gps():
     print("|", end=" ")
@@ -484,6 +493,7 @@ def talkto(character):
                     map - gives a list of all your available locations
                     contacts - give a list of all your friends
                     call uber - calls your uber driver to pick you up
+                    wallet - shows what's in your inventory
                     look around - gives a description of your current area
                     go to ___ - goes to a certain area in your present location to meet someone
                     hey ___ - talks to someone in your present location""")
@@ -601,7 +611,7 @@ def talkto(character):
                     print(f"hmm, i'm not finding anything for '{a}'.")
         elif character == abby:
             if abby in friends:
-                print("placeholder")
+                print("\x1b[5;31;40mHi friend!\x1b[0m")
             elif abby in acquaintances:
                 while True:
                     r = input("""\x1b[5;31;40mDid you get Paul's number for me?\x1b[0m
@@ -661,7 +671,7 @@ def talkto(character):
                         print("\x1b[5;31;40mCome back to me when you do.\x1b[0m")
                         break
                     elif r == "3":
-                        print('\x1b[1;37;40m' + "Why do you want Paul's number so much." + '\x1b[0m')
+                        print('\x1b[1;37;40m' + "Why do you want Paul's number so much?" + '\x1b[0m')
                         time.sleep(s)
                         print("\x1b[5;31;40mBecause he's so cool!\x1b[0m")
                         break
@@ -702,7 +712,6 @@ def talkto(character):
             else:
                 acquaintances.append(abby)
                 while True:
-                    time.sleep(s)
                     r = input("""\x1b[5;31;40mHey, I'm kinda busy. What do you want?\x1b[0m
                     1. Ask for Number
                     2. Try to Help Her Ollie
@@ -799,6 +808,82 @@ def talkto(character):
 
                     else:
                         print("\x1b[5;31;40mWhat? Sorry, I can't understand you.\x1b[0m")
+        elif character == paul:
+            if paul in friends:
+                print('\x1b[5;32;40m' + f"What's up, {myself.name}?" + '\x1b[0m')
+            elif paul in acquaintances:
+                while True:
+                    r = input("""\x1b[5;32;40mWhere's my 5 buck lunch?\x1b[0m
+                    1. I have it
+                    2. Not yet
+                    3. Why?
+
+                    >>> """)
+                    if r == "1":
+                        print('\x1b[1;37;40m' + "Right here." + '\x1b[0m')
+                        time.sleep(s)
+                        if "5 buck lunch" in inventory:
+                            print("you give Paul the 5 buck lunch.")
+                            time.sleep(s)
+                            print("\x1b[5;32;40mThanks!\x1b[0m")
+                            time.sleep(s)
+                            print("\x1b[5;32;40mHave my number. Let's go to Dairy Queen together sometime.\x1b[0m")
+                            time.sleep(s)
+                            print("Paul is now your friend!")
+                            acquaintances.remove(paul)
+                            friends.append(paul)
+                            break
+                        else:
+                            print("\x1b[5;32;40mNo you don't stop playing.\x1b[0m")
+                            break
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "Sorry, I don't have it yet." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;32;40mBetter actually buy it, don't waste my money.\x1b[0m")
+                        break
+                    elif r == "3":
+                        print('\x1b[1;37;40m' + "Why do you like Dairy Queen so much?" + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;32;40mBecause it tastes so good.\x1b[0m")
+                        break
+                    else:
+                        print("\x1b[5;32;40mWatchu say?\x1b[0m")
+            else:
+                while True:
+                    r = input("""\x1b[5;32;40mWhat do you need?\x1b[0m
+                    1. Be friends
+                    2. Compliment serves
+                    3. Nevermind
+
+                    >>> """)
+                    if r == "1":
+                        acquaintances.append(paul)
+                        print('\x1b[1;37;40m' + "Can we be friends?" + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;32;40mSure! Only if you buy me 5 buck lunch at Dairy Queen though.\x1b[0m")
+                        time.sleep(s)
+                        map.append("Dairy Queen")
+                        print("Dairy Queen has been added to your map!")
+                        time.sleep(s)
+                        print("\x1b[5;32;40mHere's some money to buy it.\x1b[0m")
+                        time.sleep(s)
+                        inventory['dollars'] += 5
+                        print("$5 have been added to you wallet!")
+                        time.sleep(s)
+                        print("say 'wallet' (without quotes) to see what's in your inventory.")
+                        break
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "Nice serves." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;32;40mThanks.\x1b[0m")
+                        break
+                    elif r == "3":
+                        print('\x1b[1;37;40m' + "Nevermind." + '\x1b[0m')
+                        time.sleep(s)
+                        print("Paul goes back to practicing his serves.")
+                        break
+                    else:
+                        print("\x1b[5;32;40mWatchu say?\x1b[0m")
     else:
         print("that person isn't here.")
 
