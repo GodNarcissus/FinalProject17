@@ -510,6 +510,11 @@ def talkto(character):
                             time.sleep(s)
                             print("I'm just a character in a dating simulator.")
                             break
+                        elif r == "4":
+                            print('\x1b[1;37;40m' + "Nevermind." + '\x1b[0m')
+                            time.sleep(s)
+                            print("yep, everything's okay.")
+                            break
                         elif r == "3":
                             print('\x1b[1;37;40m' + "Do you want to be friends, Simi?" + '\x1b[0m')
                             time.sleep(s)
@@ -527,6 +532,7 @@ def talkto(character):
                                         if k == 1:
                                             print("hm, I don't believe you.")
                                             time.sleep(s)
+                                            break
                                         else:
                                             print("wow, I've never made a friend before.")
                                             time.sleep(s)
@@ -536,15 +542,17 @@ def talkto(character):
                                             time.sleep(1)
                                             print("I am now your friend!")
                                             friends.append(simi)
-                                        break
+                                            break
                                     elif a == "2":
                                         print('\x1b[1;37;40m' + "No, I was just kidding!" + '\x1b[0m')
                                         time.sleep(s)
                                         print("okay...")
                                         break
+                                break
                             else:
                                 print("don't be silly, we're already friends!")
                                 break
+                    break
                 elif a == "3":
                     print('\x1b[1;37;40m' + "I need some help." + '\x1b[0m')
                     while True:
@@ -584,6 +592,8 @@ def talkto(character):
                             break
 
                 elif a == "4":
+                    print('\x1b[1;37;40m' + "Nevermind." + '\x1b[0m')
+                    time.sleep(s)
                     print("yep, everything's okay.")
                     break
 
@@ -600,6 +610,95 @@ def talkto(character):
                     3. Why?
 
                     >>> """)
+                    if r == "1":
+                        print('\x1b[1;37;40m' + "Yeah I go the number right here." + '\x1b[0m')
+                        time.sleep(s)
+                        if paul in friends:
+                            print("\x1b[5;31;40mOh my god, thank you so much!\x1b[0m")
+                            time.sleep(s)
+                            print("\x1b[5;31;40mHere's my number.\x1b[0m")
+                            time.sleep(s)
+                            print("Abby is now your friend!")
+                            friends.append(abby)
+                            acquaintances.remove(abby)
+                            break
+                        else:
+                            while True:
+                                r = input("""You obviously don't have Paul's number. What do you do?
+                                1. Say you were kidding.
+                                \x1b[1;31;40m2. Give a fake number.\x1b[0m
+
+                                >>> """)
+                                if r == "1":
+                                    print('\x1b[1;37;40m' + "Haha, just kidding!" + '\x1b[0m')
+                                    time.sleep(s)
+                                    print("\x1b[5;31;40mThat's not a funny joke...\x1b[0m")
+                                    break
+                                elif r == "2":
+                                    print("you think of a random phone number off the top of your head and tell her.")
+                                    time.sleep(s)
+                                    k=random.randint(1,4)
+                                    if k == 1:
+                                        print("\x1b[5;31;40mOh my god, thank you so much!\x1b[0m")
+                                        time.sleep(s)
+                                        print("\x1b[5;31;40mHere's my number.\x1b[0m")
+                                        time.sleep(s)
+                                        print("she actually believed you.")
+                                        time.sleep(s)
+                                        print("Abby is now your friend!")
+                                        friends.append(abby)
+                                        acquaintances.remove(abby)
+                                        break
+                                    else:
+                                        print("\x1b[5;31;40mThat's definitely a fake number.\x1b[0m")
+                                        time.sleep(s)
+                                        print("\x1b[5;31;40mTalk to me when you have his actual number.\x1b[0m")
+                                        break
+                            break
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "Not yet." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mCome back to me when you do.\x1b[0m")
+                        break
+                    elif r == "3":
+                        print('\x1b[1;37;40m' + "Why do you want Paul's number so much." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mBecause he's so cool!\x1b[0m")
+                        break
+                    else:
+                        print("\x1b[5;31;40mI don't get what you're saying.\x1b[0m")
+            elif abby in enemies:
+                while True:
+                    r = input("""\x1b[5;31;40mWhat do you want, poser?\x1b[0m
+                    1. Skate
+                    2. Be friends
+                    3. Nothing
+
+                    >>> """)
+                    if r == "1":
+                        print('\x1b[1;37;40m' + "I wanna skate with you." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mSorry, I don't skate with posers.\x1b[0m")
+                        break
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "I want to be your friend." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mHm, I'll consider it.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[5;31;40mIf you can get me the boy's phone number over there, I'll give you mine.\x1b[0m")
+                        time.sleep(s)
+                        print("she points towards the \x1b[4;37;40mvolleyball net\x1b[0m, where a boy is practicing a jumping serve.")
+                        enemies.remove(abby)
+                        acquaintances.append(abby)
+                        break
+                    elif r == "3":
+                        print('\x1b[1;37;40m' + "Nothing." + '\x1b[0m')
+                        time.sleep(s)
+                        print("\x1b[5;31;40mThen leave.\x1b[0m")
+                        break
+                    else:
+                        print("\x1b[5;31;40mWhat are you saying? Just leave me alone.\x1b[0m")
+                        break
             else:
                 acquaintances.append(abby)
                 while True:
@@ -638,6 +737,8 @@ def talkto(character):
                                 print("\x1b[5;31;40mSeriously? Just cuz I'm jumping higher doesn't mean my technique is clean.\x1b[0m")
                                 time.sleep(s)
                                 print("well that could have gone better...")
+                                enemies.append(abby)
+                                acquaintances.remove(abby)
                                 break
                             elif r == "2":
                                 print('\x1b[1;37;40m' + "You need to 'shuv' your board faster." + '\x1b[0m')
@@ -645,6 +746,8 @@ def talkto(character):
                                 print("\x1b[5;31;40mI'm obviously trying to ollie, not pop-shuv it.\x1b[0m")
                                 time.sleep(s)
                                 print("well that could have gone better...")
+                                enemies.append(abby)
+                                acquaintances.remove(abby)
                                 break
                             elif r == "3":
                                 print('\x1b[1;37;40m' + "You're 'popping' too softly. Do it harder for more height." + '\x1b[0m')
@@ -684,10 +787,14 @@ def talkto(character):
                                     enemies.append(abby)
                                     acquaintances.remove(abby)
                                     break
+                            else:
+                                print('\x1b[5;31;40m' + "What did you say?" + '\x1b[0m')
+                        break
                     elif r =="3":
                         print('\x1b[1;37;40m' + "Oh, nothing." + '\x1b[0m')
                         time.sleep(s)
                         print("\x1b[5;31;40mAlright.\x1b[0m")
+                        acquaintances.remove(abby)
                         break
 
                     else:
