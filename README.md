@@ -13,3 +13,6 @@ https://stackoverflow.com/questions/287871/print-in-terminal-with-colors/2178628
 
 helped count items in lists (number of friends in friendslist):
 https://stackoverflow.com/questions/4130027/python-count-elements-in-list
+
+link to presentation with flowcharts:
+https://docs.google.com/presentation/d/1IFs5VWg2Youurr2ZaHFKUwh9PaU_hBG-lKUaQAN4thQ/edit#slide=id.p
