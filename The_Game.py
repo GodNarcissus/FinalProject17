@@ -39,6 +39,9 @@ abby = Character("Abby","Joe Collins Park")
 paul = Character("Paul","Joe Collins Park")
 #this is the volleyball character
 
+shane = Character("Shane","Dairy Queen")
+#this is the cashier at DQ
+
 uber = Character("Uber Driver", myself.location)
 #this is your uber driver, the person who will transport you to different locations
 
@@ -90,6 +93,12 @@ def options():
     elif a == "hey paul":
         talkto(paul)
         #talks to volleyball player
+    elif a == "go to cash register":
+        approach("cash register")
+        #learns the cashier's name
+    elif a == "hey shane":
+        talkto(shane)
+        #talks to the cashier
     else:
         print("invalid")
 
@@ -185,12 +194,15 @@ def observe():
         print("behind the fenced court, you see someone has set up a \x1b[4;37;40mvolleyball net\x1b[0m.")
         time.sleep(s)
         print("he looks like he's practicing a jumping serve.")
-        time.sleep(s)
     elif myself.location == "Tutorial":
         print("the room is well lit by hanging lightbulbs in the shape of wolf heads from the ceiling.")
         time.sleep(s)
         print("Colette has an interesting taste in decorations.")
+    elif myself.location == "Dairy Queen":
+        print("the store is surprisingly empty.")
         time.sleep(s)
+        print("the only person inside is a girl at the \x1b[4;37;40mcash register\x1b[0m.")
+    time.sleep(s)
 
 
 #introduction dialogues, after going to where a person is, this will tell the player their names so they can talk to the characters
@@ -222,8 +234,33 @@ def talkto(character):
     if myself.location == character.location:
         print('\x1b[1;37;40m' + f"Hey {character.name}!" + '\x1b[0m')
         time.sleep(s)
+        #begins talking to yourself
+        if character == myself:
+            if myself in friends:
+                print('\x1b[1;37;40m' + "Stop talking to yourself and make some actual friends!" + '\x1b[0m')
+            else:
+                while True:
+                    r = input("""\x1b[1;37;40mHey me!\x1b[0m
+                    1. Compliment
+                    2. Insult
+                    3. Goodbye
+
+                    >>> """)
+                    if r == "1":
+                        print("\x1b[1;37;40mYou are an amazing person.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[1;37;40mThank you! You are wonderful too!\x1b[0m")
+                        time.sleep(s)
+                        print("you now have self confidence!")
+                        inventory["self confidence"] = 1
+                        friends.append(myself)
+                        time.sleep(s)
+                        print("you now will pass all speech checks.")
+                        break
+                    elif r == "3":
+                        print("\x1b[1;37;40mBye!\x1b[0m")
         #begins Colette's speech tree
-        if character == colette:
+        elif character == colette:
             if colette in friends:
                 #if you choose to go back to the tutorial location and talk to colette, gives a different speech tree
                 print('\x1b[5;35;40m' + "Hi friend! How are you?" +'\x1b[0m')
@@ -240,6 +277,8 @@ def talkto(character):
                         print('\x1b[1;37;40m' + "Hey Colette, I'm really sorry." + '\x1b[0m')
                         time.sleep(s)
                         k=random.randint(1,4)
+                        if "self confidence" in inventory:
+                            k = 1
                         if k == 1:
                             print('\x1b[5;35;40m' + "Okay, I forgive you, you sound genuine." + '\x1b[0m')
                             enemies.remove(colette)
@@ -258,7 +297,6 @@ def talkto(character):
                     time.sleep(s)
                     print("Colette is now your friend!")
                     friends.append(colette)
-                    acquaintances.remove(colette)
             else:
                 acquaintances.append(colette)
                 #sets it so you've talked to colette
@@ -322,6 +360,8 @@ def talkto(character):
                                         print('\x1b[1;37;40m' + "Hey Colette, I'm really sorry." + '\x1b[0m')
                                         time.sleep(s)
                                         k=random.randint(1,4)
+                                        if "self confidence" in inventory:
+                                            k = 1
                                         if k == 1:
                                             print('\x1b[5;35;40m' + "Okay, I forgive you, you sound genuine." + '\x1b[0m')
                                             enemies.remove(colette)
@@ -528,6 +568,7 @@ def talkto(character):
                         elif r == "3":
                             print('\x1b[1;37;40m' + "Do you want to be friends, Simi?" + '\x1b[0m')
                             time.sleep(s)
+                            #will call a speech check if trying to be friends with simi
                             if simi not in friends:
                                 while True:
                                     a = input("""really? do you mean it?
@@ -539,6 +580,9 @@ def talkto(character):
                                         print('\x1b[1;37;40m' + "Yes! Of course." + '\x1b[0m')
                                         time.sleep(s)
                                         k=random.randint(1,2)
+                                        #if the player has talked to themselves positively, they can convince anyone with whatever they say
+                                        if "self confidence" in inventory:
+                                            k = 2
                                         if k == 1:
                                             print("hm, I don't believe you.")
                                             time.sleep(s)
@@ -560,6 +604,7 @@ def talkto(character):
                                         break
                                 break
                             else:
+                                #is called if you're already friends with simi
                                 print("don't be silly, we're already friends!")
                                 break
                     break
@@ -648,6 +693,8 @@ def talkto(character):
                                     print("you think of a random phone number off the top of your head and tell her.")
                                     time.sleep(s)
                                     k=random.randint(1,4)
+                                    if "self confidence" in inventory:
+                                        k = 1
                                     if k == 1:
                                         print("\x1b[5;31;40mOh my god, thank you so much!\x1b[0m")
                                         time.sleep(s)
@@ -774,6 +821,8 @@ def talkto(character):
                                 time.sleep(s)
                                 k=random.randint(1,4)
                                 print("you get on her skateboard and attempt to ollie for the very first time in your life...")
+                                if "self confidence" in inventory:
+                                    k = 1
                                 if k == 1:
                                     print("and you succeed!")
                                     time.sleep(s)
@@ -784,6 +833,8 @@ def talkto(character):
                                     print("\x1b[5;31;40mI didn't really learn anything, but here's my number!\x1b[0m")
                                     time.sleep(s)
                                     print("\x1b[5;31;40mCall me up if you ever wanna schedule a skate sesh.\x1b[0m")
+                                    time.sleep(s)
+                                    print("Abby is now your friend!")
                                     friends.append(abby)
                                     acquaintances.remove(abby)
                                     break
@@ -824,6 +875,7 @@ def talkto(character):
                         time.sleep(s)
                         if "5 buck lunch" in inventory:
                             print("you give Paul the 5 buck lunch.")
+                            inventory["5 buck lunch"] = 0
                             time.sleep(s)
                             print("\x1b[5;32;40mThanks!\x1b[0m")
                             time.sleep(s)
