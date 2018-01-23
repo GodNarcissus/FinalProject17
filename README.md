@@ -7,3 +7,9 @@ Some will want a certain item , need you to say the right thing , or want you to
 You'll be able to travel to different parts of the town to find new people and items to help you on your journey .
 
 That's all ! Welcome to my dating simulator !
+
+helped add colored output to text:
+https://stackoverflow.com/questions/287871/print-in-terminal-with-colors/21786287#21786287
+
+helped count items in lists (number of friends in friendslist):
+https://stackoverflow.com/questions/4130027/python-count-elements-in-list
