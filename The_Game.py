@@ -53,7 +53,6 @@ simi = Character("Simi", myself.location)
 
 #basically what the player can do in any location after the tutorial
 def options():
-    time.sleep(s)
     a = input(">>> ").lower()
     if a == "call uber":
         call_uber()
