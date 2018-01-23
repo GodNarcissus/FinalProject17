@@ -9,6 +9,9 @@ class Character(object):
         self.location = location
 #gives all npc's and the player the same class. each character will have a name & a place they'll reside.
 
+heart = []
+#the home of major depression if the player hates themself
+
 map = ["Tutorial"]
 #will represent the player's accessable areas
 
@@ -102,9 +105,26 @@ def options():
     else:
         print("invalid")
 
+#will show what's in the player's inventory
 def wallet():
     for key, value in inventory.items():
         print(f"{key} -- {value}")
+
+#will be called when the player is dead
+def dead():
+    while "major depression" in heart:
+        a = input(">>> ").lower()
+        if a == "i am god":
+            print("oh yeah that's right, you can't die.")
+            time.sleep(s)
+            print("my bad.")
+            time.sleep(s)
+            print("you are now alive again (I guess?).")
+            #secret code that lets you come back to life and overcome depression
+            heart.remove("major depression")
+            break
+        else:
+            print("you are dead.")
 
 def gps():
     print("|", end=" ")
@@ -129,12 +149,10 @@ def contacts():
 def call_uber():
     print("calling your uber driver...")
     time.sleep(2)
-    print("...")
-    time.sleep(2)
     print('\x1b[0;30;47m' + f"What's up, {myself.name}? Where you wanna go?" + '\x1b[0m')
-    time.sleep(1)
+    time.sleep(s)
     print('\x1b[0;30;47m' + "Just tell me where." + '\x1b[0m')
-    time.sleep(1)
+    time.sleep(s)
     while True:
         gps()
         #shows the list of locations the player can travel to
@@ -204,6 +222,16 @@ def observe():
         print("the only person inside is a girl at the \x1b[4;37;40mcash register\x1b[0m.")
     time.sleep(s)
 
+def win():
+    print("nice job! you've become friends with everyone in the game!")
+    time.sleep(s)
+    print("you can now call yourself an expert at making friends,")
+    time.sleep(s)
+    print("certified by this friendship simulator!")
+    while True:
+        a = input(">>> ")
+        if a == "help":
+            print("you've won!")
 
 #introduction dialogues, after going to where a person is, this will tell the player their names so they can talk to the characters
 def approach(place):
@@ -212,21 +240,24 @@ def approach(place):
     if place == "corner":
         if myself.location == "Tutorial":
             print('\x1b[5;35;40m' + f"Hi! My name is Colette." + '\x1b[0m')
-            time.sleep(s)
         else:
             print("you can't go there from here.")
     elif place == "tennis court":
         if myself.location == "Joe Collins Park":
             print('\x1b[5;31;40m' + "Uh, hi. I'm Abby." + '\x1b[0m')
-            time.sleep(s)
         else:
             print("you can't go there from here.")
     elif place == "volleyball net":
         if myself.location == "Joe Collins Park":
             print('\x1b[5;32;40m' + "Hey, I'm Paul." + '\x1b[0m')
-            time.sleep(s)
         else:
             print("you can't go there from here.")
+    elif place == "cash register":
+        if myself.location == "Dairy Queen":
+            print('\x1b[5;33;40m' + "Hi, I'm Shane." + '\x1b[0m')
+        else:
+            print("you can't go there from here.")
+
 
 
 def talkto(character):
@@ -234,18 +265,126 @@ def talkto(character):
     if myself.location == character.location:
         print('\x1b[1;37;40m' + f"Hey {character.name}!" + '\x1b[0m')
         time.sleep(s)
+        #begins speech tree with DQ cashier
+        if character == shane:
+            if shane in friends:
+                while True:
+                    r = input(f"""\x1b[5;33;40mHi, {myself.name}! What can I get you?\x1b[0m
+    1. 5 Buck Lunch
+    2. Nothing
+
+>>> """)
+                    if r == "1":
+                        if inventory["dollars"] == 5:
+                            print("you give Shane the $5")
+                            inventory["dollars"] -= 5
+                            time.sleep(s)
+                            print("you now have a 5 buck lunch.")
+                            inventory["5 buck lunch"] = 1
+                            time.sleep(s)
+                            print("\x1b[5;33;40mHave a nice day!\x1b[0m")
+                            break
+                        else:
+                            print("\x1b[5;33;40mI'm sorry, but you don't have enough money.\x1b[0m")
+                            break
+                    elif r == "2":
+                        print("\x1b[1;37;40mNothing.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[5;33;40mOkay, have a nice day!\x1b[0m")
+                        break
+                    else:
+                        print("\x1b[5;33;40mI'm sorry, I didn't catch that.\x1b[0m")
+            else:
+                while True:
+                    r = input("""\x1b[5;33;40mHi, welcome to Dairy Queen. What can I get you?\x1b[0m
+    1. 5 Buck Lunch
+    \x1b[1;32;40m2. Friendship\x1b[0m
+    3. Nothing
+
+>>> """)
+                    if r == "1":
+                        if inventory["dollars"] == 5:
+                            print("you give Shane the $5")
+                            inventory["dollars"] -= 5
+                            time.sleep(s)
+                            print("you now have a 5 buck lunch.")
+                            inventory["5 buck lunch"] = 1
+                            time.sleep(s)
+                            print("\x1b[5;33;40mHave a nice day!\x1b[0m")
+                            break
+                        else:
+                            print("\x1b[5;33;40mI'm sorry, but you don't have enough money.\x1b[0m")
+                            break
+                    elif r == "2":
+                        print('\x1b[1;37;40m' + "Can I have your friendship?" + '\x1b[0m')
+                        time.sleep(s)
+                        k=random.randint(1,4)
+                        if "self confidence" in inventory:
+                            k = 2
+                        if k == 1:
+                            print("\x1b[5;33;40mHaha no, sorry.\x1b[0m")
+                            break
+                        else:
+                            print("\x1b[5;33;40mSure; working here is pretty boring.\x1b[0m")
+                            time.sleep(s)
+                            print("Shane is now your friend!")
+                            friends.append(shane)
+                            break
+                    elif r == "3":
+                        print("\x1b[1;37;40mNothing.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[5;33;40mOkay, have a nice day!\x1b[0m")
+                        break
+                    else:
+                        print("\x1b[5;33;40mI'm sorry, I didn't catch that.\x1b[0m")
+        #begins speech tree with uber driver
+        elif character == uber:
+            if uber in friends:
+                print('\x1b[0;30;47m' + "Whaddup dude." + '\x1b[0m')
+            else:
+                while True:
+                    r = input(f"""\x1b[0;30;47mWhat's good, {myself.name}?\x1b[0m
+    1. Chilling
+    2. Trying to make friends
+    3. Nevermind
+
+>>> """)
+                    if r == "1":
+                        print("\x1b[1;37;40mJust chilling wbu.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[0;30;47mSweeet.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[0;30;47mTake my number if you wanna chill outside of uber rides.\x1b[0m")
+                        time.sleep(s)
+                        print("Your Uber Driver is now your friend!")
+                        friends.append(uber)
+                        break
+                    elif r == "2":
+                        print("\x1b[1;37;40mI'm tryna make friends.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[0;30;47mSweeet.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[0;30;47mGood luck with that.\x1b[0m")
+                        break
+                    elif r == "3":
+                        print("\x1b[1;37;40mNevermind.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[0;30;47mDon't waste my time.\x1b[0m")
+                        break
+                    else:
+                        print("\x1b[0;30;47mI don't know what you're saying.\x1b[0m")
         #begins talking to yourself
-        if character == myself:
+        elif character == myself:
             if myself in friends:
                 print('\x1b[1;37;40m' + "Stop talking to yourself and make some actual friends!" + '\x1b[0m')
             else:
                 while True:
                     r = input("""\x1b[1;37;40mHey me!\x1b[0m
-                    1. Compliment
-                    2. Insult
-                    3. Goodbye
+    1. Compliment
+    2. Insult
+    3. Goodbye
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         print("\x1b[1;37;40mYou are an amazing person.\x1b[0m")
                         time.sleep(s)
@@ -256,6 +395,16 @@ def talkto(character):
                         friends.append(myself)
                         time.sleep(s)
                         print("you now will pass all speech checks.")
+                        break
+                    elif r == "2":
+                        print("\x1b[1;37;40mKill yourself.\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[1;37;40m...\x1b[0m")
+                        time.sleep(s)
+                        print("\x1b[1;37;40mOkay.\x1b[0m")
+                        time.sleep(s)
+                        print("you now have major depression.")
+                        heart.append("major depression")
                         break
                     elif r == "3":
                         print("\x1b[1;37;40mBye!\x1b[0m")
@@ -269,10 +418,10 @@ def talkto(character):
                 while True:
                     #if speech check is passed, player can be friends with Colette and get closer to completing the game
                     r = input("""Colette is still crying in the corner, what will you do?
-                    \x1b[1;31;40m1. Apologize\x1b[0m
-                    2. Give up
+    \x1b[1;31;40m1. Apologize\x1b[0m
+    2. Give up
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         print('\x1b[1;37;40m' + "Hey Colette, I'm really sorry." + '\x1b[0m')
                         time.sleep(s)
@@ -305,12 +454,12 @@ def talkto(character):
                 #the player can respond to a person's question by typing in the number corresponding to their desired answer
                 while True:
                     r = input("""\x1b[5;35;40mAnyways, below is a dialogue branch. Type in the number corresponding the response you'd like to give to my statement.\x1b[0m
-                    1. Yes
-                    2. No
-                    3. Uncertain
-                    4. Be rude
+    1. Yes
+    2. No
+    3. Uncertain
+    4. Be rude
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         print('\x1b[1;37;40m' + "So, like this, right?" + '\x1b[0m')
                         time.sleep(s)
@@ -340,10 +489,10 @@ def talkto(character):
                         time.sleep(s)
                         while colette in enemies:
                             r = input("""Colette storms off and leaves you alone in the Tutorial room. what would you like to do?
-                            1. Go into the dating simulator without her help.
-                            2. Try to win back her forgiveness.
+    1. Go into the dating simulator without her help.
+    2. Try to win back her forgiveness.
 
-                            >>> """)
+>>> """)
                             if r == "2":
                                 #gives chance to continue tutorial and win back Colette's admiration
                                 print('\x1b[1;37;40m' + "I better go apologize, what I said was wrong." + '\x1b[0m')
@@ -352,10 +501,10 @@ def talkto(character):
                                 while True:
                                     time.sleep(s)
                                     r = input("""She seems really hurt. What will you do?
-                                    \x1b[1;31;40m1. Apologize\x1b[0m
-                                    2. Give up
+    \x1b[1;31;40m1. Apologize\x1b[0m
+    2. Give up
 
-                                    >>> """)
+>>> """)
                                     if r == "1":
                                         print('\x1b[1;37;40m' + "Hey Colette, I'm really sorry." + '\x1b[0m')
                                         time.sleep(s)
@@ -365,6 +514,7 @@ def talkto(character):
                                         if k == 1:
                                             print('\x1b[5;35;40m' + "Okay, I forgive you, you sound genuine." + '\x1b[0m')
                                             enemies.remove(colette)
+                                            acquaintances.append(colette)
                                             break
                                         else:
                                             print('\x1b[5;35;40m' + "No! Go away! Don't talk to me!" + '\x1b[0m')
@@ -390,12 +540,12 @@ def talkto(character):
                 while colette not in enemies:
                     #continues conversation as long as player didn't roast colette
                     r = input("""\x1b[5;35;40mBelow is a speech check. The 3 colors represent the success chance you have of passing it. Try your luck right now.\x1b[0m
-                    \x1b[1;32;40m1. Easy\x1b[0m
-                    \x1b[1;33;40m2. Medium\x1b[0m
-                    \x1b[1;31;40m3. Hard\x1b[0m
-                    4. Don't like chance
+    \x1b[1;32;40m1. Easy\x1b[0m
+    \x1b[1;33;40m2. Medium\x1b[0m
+    \x1b[1;31;40m3. Hard\x1b[0m
+    4. Don't like chance
 
-                    >>> """)
+>>> """)
                     time.sleep(s)
                     if r == "1":
                         #easiest choices are green
@@ -520,12 +670,12 @@ def talkto(character):
             while True:
                 time.sleep(1)
                 a = input(f"""hi {myself.name}, what do you need?
-                1. Apps
-                2. Talk
-                3. Help
-                4. Nevermind
+    1. Apps
+    2. Talk
+    3. Help
+    4. Nevermind
 
-                >>> """)
+>>> """)
                 if a == "1":
                     print('\x1b[1;37;40m' + "What are some of the commands or apps I can say?" + '\x1b[0m')
                     time.sleep(s)
@@ -542,12 +692,12 @@ def talkto(character):
                     while True:
                         time.sleep(s)
                         r = input("""about what?
-                        1. Weather
-                        2. Contemplate Existence
-                        3. Let's be Friends
-                        4. Nevermind
+    1. Weather
+    2. Contemplate Existence
+    3. Let's be Friends
+    4. Nevermind
 
-                        >>> """)
+>>> """)
                         if r == "1":
                             print('\x1b[1;37;40m' + "What's the weather today?" + '\x1b[0m')
                             time.sleep(s)
@@ -564,6 +714,7 @@ def talkto(character):
                             print('\x1b[1;37;40m' + "Nevermind." + '\x1b[0m')
                             time.sleep(s)
                             print("yep, everything's okay.")
+                            #leaves conversation
                             break
                         elif r == "3":
                             print('\x1b[1;37;40m' + "Do you want to be friends, Simi?" + '\x1b[0m')
@@ -613,19 +764,19 @@ def talkto(character):
                     while True:
                         time.sleep(s)
                         r = input("""some things you can ask me:
-                        1. how many friends can i make?
-                        2. how many locations can i find?
-                        3. what are the chances of passing each speech check?
-                        4. how can i raise my charisma?
-                        5. how can i date one of the characters?
-                        6. that's all.
+    1. how many friends can i make?
+    2. how many locations can i find?
+    3. what are the chances of passing each speech check?
+    4. how can i raise my charisma?
+    5. how can i date one of the characters?
+    6. that's all.
 
-                        >>> """)
+>>> """)
                         time.sleep(1)
                         if r == "1":
-                            print("in this version of the game, you can make 6 friends in total.")
+                            print("in this version of the game, you can make 7 friends in total.")
                         elif r == "2":
-                            print("in this version of the game, there are 2 locations in total.")
+                            print("in this version of the game, there are 3 locations in total.")
                         elif r == "3":
                             print("green speech checks are 75%")
                             time.sleep(1)
@@ -660,13 +811,13 @@ def talkto(character):
             elif abby in acquaintances:
                 while True:
                     r = input("""\x1b[5;31;40mDid you get Paul's number for me?\x1b[0m
-                    1. Yes
-                    2. No
-                    3. Why?
+    1. Yes
+    2. No
+    3. Why?
 
-                    >>> """)
+>>> """)
                     if r == "1":
-                        print('\x1b[1;37;40m' + "Yeah I go the number right here." + '\x1b[0m')
+                        print('\x1b[1;37;40m' + "Yeah I got the number right here." + '\x1b[0m')
                         time.sleep(s)
                         if paul in friends:
                             print("\x1b[5;31;40mOh my god, thank you so much!\x1b[0m")
@@ -680,10 +831,10 @@ def talkto(character):
                         else:
                             while True:
                                 r = input("""You obviously don't have Paul's number. What do you do?
-                                1. Say you were kidding.
-                                \x1b[1;31;40m2. Give a fake number.\x1b[0m
+    1. Say you were kidding.
+    \x1b[1;31;40m2. Give a fake number.\x1b[0m
 
-                                >>> """)
+>>> """)
                                 if r == "1":
                                     print('\x1b[1;37;40m' + "Haha, just kidding!" + '\x1b[0m')
                                     time.sleep(s)
@@ -727,11 +878,11 @@ def talkto(character):
             elif abby in enemies:
                 while True:
                     r = input("""\x1b[5;31;40mWhat do you want, poser?\x1b[0m
-                    1. Skate
-                    2. Be friends
-                    3. Nothing
+    1. Skate
+    2. Be friends
+    3. Nothing
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         print('\x1b[1;37;40m' + "I wanna skate with you." + '\x1b[0m')
                         time.sleep(s)
@@ -760,11 +911,11 @@ def talkto(character):
                 acquaintances.append(abby)
                 while True:
                     r = input("""\x1b[5;31;40mHey, I'm kinda busy. What do you want?\x1b[0m
-                    1. Ask for Number
-                    2. Try to Help Her Ollie
-                    3. Nevermind
+    1. Ask for Number
+    2. Try to Help Her Ollie
+    3. Nevermind
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         print('\x1b[1;37;40m' + "Can I get your number?" + '\x1b[0m')
                         time.sleep(s)
@@ -781,12 +932,12 @@ def talkto(character):
                         while True:
                             time.sleep(s)
                             r = input("""You realize you actually don't know how to skate. What do you do?
-                            1. Tell her to jump higher
-                            2. Tell her she needs to "shuv" faster
-                            3. Tell her she needs to "pop" harder
-                            \x1b[1;31;40m4. Try to ollie yourself\x1b[0m
+    1. Tell her to jump higher
+    2. Tell her she needs to "shuv" faster
+    3. Tell her she needs to "pop" harder
+    \x1b[1;31;40m4. Try to ollie yourself\x1b[0m
 
-                            >>> """)
+>>> """)
                             if r == "1":
                                 print('\x1b[1;37;40m' + "Have you tried jumping higher?" + '\x1b[0m')
                                 time.sleep(s)
@@ -865,11 +1016,11 @@ def talkto(character):
             elif paul in acquaintances:
                 while True:
                     r = input("""\x1b[5;32;40mWhere's my 5 buck lunch?\x1b[0m
-                    1. I have it
-                    2. Not yet
-                    3. Why?
+    1. I have it
+    2. Not yet
+    3. Why?
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         print('\x1b[1;37;40m' + "Right here." + '\x1b[0m')
                         time.sleep(s)
@@ -903,11 +1054,11 @@ def talkto(character):
             else:
                 while True:
                     r = input("""\x1b[5;32;40mWhat do you need?\x1b[0m
-                    1. Be friends
-                    2. Compliment serves
-                    3. Nevermind
+    1. Be friends
+    2. Compliment serves
+    3. Nevermind
 
-                    >>> """)
+>>> """)
                     if r == "1":
                         acquaintances.append(paul)
                         print('\x1b[1;37;40m' + "Can we be friends?" + '\x1b[0m')
@@ -946,7 +1097,7 @@ while True:
     2. Fast
     3. Super Fast (developer speed)
     (type in the number)
-    >>> """))
+>>> """))
     if s == "1":
         s = 2
         break
@@ -979,7 +1130,7 @@ while True:
     1. Yes
     2. No
 
-    >>> """)
+>>> """)
     if ny == "1":
         print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
         time.sleep(s)
@@ -992,10 +1143,10 @@ while True:
         myself.name = input(">>> ")
         time.sleep(1)
         ny = input(f"""\x1b[5;35;40m{myself.name} is your name, right?\x1b[0m
-        1. Yes
-        2. No
+    1. Yes
+    2. No
 
-        >>> """)
+>>> """)
         if ny == "1":
             print('\x1b[1;37;40m' + "Yes." + '\x1b[0m')
             time.sleep(s)
@@ -1031,6 +1182,7 @@ while True:
     if a == "go to corner":
         approach("corner")
         break
+time.sleep(s)
 print("any word that is underlined is a location you can approach.")
 time.sleep(1)
 print("if you want to learn more about your surroundings or get a refresher on what can be found there, say 'look around' (without quotes)")
@@ -1075,4 +1227,15 @@ if colette in enemies:
 #the most important loop, this is what will prompt the player for what command to input
 while True:
     time.sleep(s)
-    options()
+    #checks to see if you acquired all 7 friends in the game
+    if len(friends) == 7:
+        win()
+    #checks to see if you insulted yourself, if you do, stops options from coming up
+    elif "major depression" in heart:
+        print("wow you actually killed yourself.")
+        time.sleep(s)
+        print("game over?")
+        time.sleep(s)
+        dead()
+    else:
+        options()
