@@ -16,4 +16,3 @@ https://stackoverflow.com/questions/4130027/python-count-elements-in-list
 
 link to presentation with flowcharts:
 https://docs.google.com/presentation/d/1IFs5VWg2Youurr2ZaHFKUwh9PaU_hBG-lKUaQAN4thQ/edit#slide=id.p
->>>>>>> be8bfb2400b46ce04209da5ec6fbe930c473c119
