@@ -722,10 +722,10 @@ def talkto(character):
                             if simi not in friends:
                                 while True:
                                     a = input("""really? do you mean it?
-                                    \x1b[1;33;40m1. Yes\x1b[0m
-                                    2. No
+\x1b[1;33;40m1. Yes\x1b[0m
+2. No
 
-                                    >>> """)
+    >>> """)
                                     if a == "1":
                                         print('\x1b[1;37;40m' + "Yes! Of course." + '\x1b[0m')
                                         time.sleep(s)
