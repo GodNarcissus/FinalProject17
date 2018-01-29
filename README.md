@@ -16,3 +16,6 @@ https://stackoverflow.com/questions/4130027/python-count-elements-in-list
 
 link to presentation with flowcharts:
 https://docs.google.com/presentation/d/1IFs5VWg2Youurr2ZaHFKUwh9PaU_hBG-lKUaQAN4thQ/edit#slide=id.p
+
+link to repository with latest version of game (will be working on outside of the project):
+https://github.com/GodNarcissus/TheDatingSim
